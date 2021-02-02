@@ -1,0 +1,30 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: f2 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Build : warning : failed to (or don't know how to) build 'G:\C语言程序设计\大一（下）\第一次\f2\f2.cpp'
+
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP106.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/f2.pdb" /debug /machine:I386 /out:"Debug/f2.exe" /pdbtype:sept 
+".\Debug\f2.obj"
+".\Debug\031102406_郑剑峰_高精度N阶乘.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP106.tmp"
+<h3>Output Window</h3>
+Linking...
+031102406_郑剑峰_高精度N阶乘.obj : error LNK2005: _main already defined in f2.obj
+Debug/f2.exe : fatal error LNK1169: one or more multiply defined symbols found
+执行 link.exe 时出错.
+
+
+
+<h3>Results</h3>
+f2.exe - 1 error(s), 1 warning(s)
+</pre>
+</body>
+</html>

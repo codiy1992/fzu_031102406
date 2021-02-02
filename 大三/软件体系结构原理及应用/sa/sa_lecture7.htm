@@ -1,0 +1,1522 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 2</title>
+<script language="JavaScript" fptype="dynamicoutline">
+<!--
+function dynOutline() {}
+//-->
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" src="outline.js">
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" for="document" event="onreadystatechange()">
+<!--
+initOutline()
+//-->
+</script>
+</head>
+
+<body onclick="dynOutline()" bgcolor="#FFCCFF">
+
+<p><font color="#FF0000"><font size="6">S</font><b><font size="6">oftware   
+Architecture&nbsp;</font></b></font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">&nbsp; 　　　　　－<b><font size="5">principle                
+and practice</font></b></font></p>               
+<hr>
+<p><font size="6"><a name="L5_1"></a></font><font color="#0000FF" size="5">第七讲　结构设计空间及其量化(Architecture             
+Design Guidance)</font></p>            
+<p><font color="#0000FF" size="5">　　</font><font size="4">对于一个给定的需求，人们如何选择一个合适的软件结构？具有多年建立系统经验的优秀系统设计员（good          
+system designer)心中想到的只是当前可用结构的专门技术。然而，作为一门成熟的领域，我们希望从这些专门技术之中找到一些方法，帮助我们在建立软件结构时能在一个结构设计空间中依据原理进行选择。在这一讲中，我们将重点介绍两种结构设计的原型方法（prototype          
+tool)，一种是用户接口结构设计（user-interface             
+    architecture)，另一个是量化设计空间(Quantified Design            
+    Space)。</font></p>  
+<ul dynamicoutline initcollapsed type="circle">
+      <li><font color="#0000FF" size="5">一.设计空间和规则（design space          
+        and rule)</font>         
+        <ul type="disc">
+          <li><font size="5" color="#0000FF">1.设计空间（design space)</font>         
+            <ul type="disc">
+              <li><font size="4">把能用来描述、分类，并可供系统设计员选择的有效的结构集合称为设计空间。</font></li>
+              <li><font size="4">一个指定的应用系统的设计空间(desigm         
+                space)是指在建立该系统设计时所有可供选择的功能维(functional         
+                dimensions)和结构维(structure dimensions)的集合。</font></li>        
+            </ul>
+          </li>
+          <li><font size="5" color="#0000FF">2.维(Deimension)</font>
+            <ul type="disc">
+              <li><font size="4">设计空间是多维的，每个维描述系统的一个特征（characteristic)或需求(requirement)的变化(variation)，维的值表示维所对应的特征或需求所有可选择范围。</font></li>
+              <li><font size="4">功能维(functional         
+                dimensions)表示问题空间（ploblem         
+                space)即功能设计或性能设计的可选择的各个方面。</font></li>
+              <li><font size="4">结构维(structure         
+                dimensions)表示方法空间(solution         
+                space)即实现一个特征的所有可选择的方法。</font></li>
+              <li><font size="4">设计空间的维通常是不连续的，并且没有度量单位。表示也可能是。表示结构的维通常是一组离散的(discrete)值的集合，它们可能是没有任何意义的序列，如状态转换图(state        
+                transition diagram)、菜单(menu)、表单(form)等。有一些维在理论上是连续的(如表示性能的维)，我们通常把它分成几个不连续的部分，如low、medium、high等。</font></li>       
+            </ul>
+          </li>
+          <li><font size="5" color="#0000FF">3.设计规则（design rule)</font>         
+            <ul type="disc">
+              <li><font size="4">设计空间中的维数，可能是相关的，也可能是独立的，设计规则(design         
+                rule，简称规则)是指维之间的所有关系，主要两种类型：有功能维与结构维的关系规则、结构维内部之间的关系规则。</font></li>
+              <li><font size="4">规则（rule)可用正（positive)、负(negative)权值（weight)表示,这样规则体现了维之间关系的紧密程度或选定一种组合的好、坏。</font></li>
+              <li><font color="#FF0000"><font size="4">一旦从设计空间中选定一个设计，那么就可以通过权值来计算这个设计的得分(score)，如果能将一个应用的设计空间的所有设计的得分计算出来，就可以比较各种设计的得分，以找出一个最合适的设计。</font></font></li>
+              <li><font size="4">对于一个经验丰富的高级设计员，可以建立一个足够完备(complete)和可靠(reliable)的规则，作为自动系统设计(automated         
+                system design)的基础。但是并不是说有了规则，就可以设计出一个完善的或一个最有可能的系统。规则可以帮助一个初级设计员（journeyman         
+                designer)像高级设计员（master designer)一样去选择一个合适的、没有大错误的设计。一个自动系统设计(automated         
+                system design)的实现将是一个漫长的过程。</font></li>        
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="5">4.设计知识库（design         
+            vocabulary)</font>
+            <ul type="disc">
+              <li><font color="#0000FF" size="4">设计知识库（design         
+                vocabulary)</font>
+                <ul type="disc">
+                  <li><font size="4" color="#000000">表示软件设计的知识（knowledge）,一种好的方法就是建立一个</font><font size="4" color="#000000">设计知识库（design         
+                    vocabulary)，一组容易理解（well-understood)、可重用(reusable）的设计概念(concept)和模式(pattern)。</font></li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">使用设计知识库的好处（major         
+                benefit)</font>
+                <ul>
+                  <li><font size="4">便于建立新系统（mental building         
+                    blocks）；</font></li>
+                  <li><font size="4">帮助理解和预见（predicting)一个设计的属性(property)；</font></li>
+                  <li><font size="4">减少了学习新的概念的数量，因而减少用于理解他人的设计的努力（effort)。</font></li>
+                  <li><font color="#FF0000"><font size="4">比如，程序结构由控制流程的少数几个标准概念【条件（conditional)、循环(iteration)、子过程调用(subroutine         
+                    call)等】来描述，程序避免了早期所使用的复杂的底层测试和分枝等操作，而直接使用这些大家普遍理解和接受的控制流程模型，并把精力集中于这些模型的属性（如循环语句中的条件变量、结束条件等），这样不仅容易编写、容易阅读而且更加可靠。</font></font></li>
+                  <li><font size="4">随着软件工程的成熟和研究关注转向大的系统，我们期待类似于程序结构的标准也会在大型软件系统中出现，现存中型(medium-size)软件的结构模型的正在不断走向成熟，人们已经注意到（anticipate)对于一个大型系统更高层的抽象是必要的。</font></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="5">5.进一步讨论</font>
+            <ul>
+              <li><font size="4" color="#0000FF">一个简单的设计空间的例子</font>
+                <ul type="disc">
+                  <li><font size="4">上面，我们主要介绍由不同的系统结构构成的多维设计空间(multidimensional        
+                    design space)的概念，设计空间中的每个维描述了系统的一个特征及其可选择的范围，维上的值(即规则)则表示了需求与选定设计(design        
+                    choices)的关系程度。比如，在一个并发进程的同步机制(interprocess        
+                    synchronization mechanism)中，响应时间(response time)作为一个维，需求为Fast,Med和Slow,同步机制作为另一个维,结构有Message,Semaphore,Monitor,Rendezvous,Other,None等。</font></li>       
+                  <li><font size="4"><img border="1" src="sa5-01.bmp" width="490" height="202"></font></li>
+                  <li><font size="4">一个设计空间中不同维之间不一定是独立的(independent)，事实上，为了建立设计规则，发现维之间的关系是非常重要的。</font></li>
+                  <li><font size="4">构造设计空间的关键是选择维，一些维反映需求或评估标准(evaluation        
+                    criteria)，如功能、性能等，另一些维则反映结构及其可用的设计。在维之间找出关系可以提供直接的设计指导，因为这些关系表明了设计选择是否最符合新系统的功能需求。在图5.1的例子，假设message机制能提供Fast的响应时间，而Rendezvous机制只能提供Med的响应时间。</font></li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">设计空间的组成</font>
+                <ul type="disc">
+                  <li><font size="4" color="#FF0000">功能设计空间(functional        
+                    design space)：</font><font size="4">描述设计空间中功能(function)和性能(performence)方面的需求。</font></li>       
+                  <li><font size="4" color="#FF0000">结构设计空间(structure        
+                    design space)：</font><font size="4">表示设计空间可用的结构。</font></li>       
+                  <li><font size="4">比如，在瀑布模型(watefall model)中功能设计空间表示需求分析的结果,而结构设计空间则是指设计阶段初始系统的分解(decomposition)</font></li>       
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+  <li><font color="#0000FF" size="5">二</font><font color="#0000FF" size="5">、用户接口结构（user-interface             
+    architecture)设计</font>
+    <ul type="disc">
+      <li><font color="#0000FF" size="5">1.用户接口结构的设计空间</font>
+        <ul type="disc">
+          <li><font size="4">下面，我们介绍一个设计用户交互接口的软件的设计空间的建立。</font></li>
+          <li><font size="4" color="#0000FF">基本结构模型(a basic        
+            structure model)</font>       
+            <ul type="disc">
+              <li><font size="4">为了描述可用的结构，我们需要定义几个术语(</font><font size="4">terminology)用于表示系统的组件，这些术语要求是通用的，<font color="#0000FF">主要有</font>：</font>
+                <ul type="disc">
+                  <li><font color="#FF0000"><font size="4">特定应用组件(</font></font><font size="4"><font color="#FF0000">aplication-specific 
+                    component)</font>：组件应用于一个特定的应用程序，不期望在其他程序中重用，这些组件主要是应用程序的功能核心(functional        
+                    core)。</font></li>
+                  <li><font color="#FF0000"><font size="4">可</font><font size="4">共享用户接口(shared        
+                    user interface)组件:</font></font><font size="4">这些组件是供多个应用程序使用的用户接口。如果一个软件要求能适应(accommodate)各种不同的I/O设计，那么只有能应用于所有这些设备类型的组件才作为</font><font size="4">可</font><font size="4">共享用户接口组件。</font></li>       
+                  <li><font size="4" color="#FF0000">依赖设备(device-dependent)组件:</font><font size="4">这些组件依赖于特定的设备类型且不是特定应用组件。</font></li>
+                </ul>
+              </li>
+              <li><font size="4">在一些简单的系统中，可以没有后两种组件，比如，系统可能没有设备驱动程序的代码，或者系统不要求提供支持多类型设备的应用。</font></li>
+              <li><font size="4">在一些中等规模的设计空间中，接口分成两种设备接口(device        
+                interface)和应用接口(application interface)，图5.2表示了用户接口的一种基本结构模型。</font></li>       
+              <li><img border="1" src="sa5-02.bmp" width="455" height="222"></li>
+            </ul>
+          </li>
+          <li><font size="4" color="#0000FF">功能维例子(sample functional        
+            dimensions)</font>
+            <ul type="disc">
+              <li><font size="4">有研究表明一个完整的用户接口系统的设计空间包括25个功能维和19个结构维，这里我们只能选择一些有代表性的6个功能维和5个结构维。</font></li>
+              <li><font size="4" color="#0000FF">用户接口系统的功能维</font>
+                <ul type="disc">
+                  <li>
+                    <table border="1" width="67%" height="584">
+                      <tr>
+                        <td width="100%" height="578">
+                          <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-border-alt: solid windowtext .5pt; mso-padding-alt: 0cm 5.4pt 0cm 5.4pt; border-style: none; border-width: medium" width="450">
+                            <tr>
+                              <td width="434" colspan="2" valign="top" style="border: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <h1><span lang="EN-US">Functional Dimensions<o:p>      
+                                </o:p>      
+                                </span></h1>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="434" colspan="2" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">1.External 
+                                event handling<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid #000000; border-right: .5pt solid #000000; border-bottom: .5pt solid #000000; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">No       
+                                external events<o:p>      
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid #000000; border-right: .5pt solid #000000; border-bottom: .5pt solid #000000; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Process       
+                                events while waiting for input<o:p>      
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid #000000; border-right: .5pt solid #000000; border-bottom: .5pt solid #000000; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">External       
+                                events preempt user commands<o:p>      
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">2.<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">User 
+                                customizability<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">High<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Medium<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Low<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">3.<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">User 
+                                Interface adaptability across devives<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">None<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Local       
+                                behavior change<o:p>      
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Global       
+                                behavior change<o:p>      
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Application       
+                                semantics change<o:p>      
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">4.<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Computer 
+                                system organization<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Uniprocessing<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Multiprocessing<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Distributed       
+                                processing<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">5.<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Basic 
+                                interface class<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Menu       
+                                selection<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Form       
+                                filling<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Command       
+                                language<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Natural       
+                                language<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Direct       
+                                manipulation<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">6.<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Application 
+                                portability across user interface styles<o:p>
+                                </o:p>
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">High<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Medium<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="388" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Low<o:p>
+                                </o:p>      
+                                </font></span></p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </li>
+                  <li><font size="4" color="#0000FF">以上6个功能维可分为3组</font>
+                    <ul type="disc">
+                      <li><font size="4" color="#FF0000">External requirements(外部需求）：</font><font size="4">这组维数主要包括特定应用、用户、I/O设备的支持需求，以及周围计算机系统的约束。</font></li>      
+                      <li><font size="4" color="#FF0000">Basic interactive       
+                        behavior（基本交互行为）:</font><font size="4">这组维数主要包括影响内部结构的用户接口行为。</font></li>
+                      <li><font size="4" color="#FF0000">Practical       
+                        considerations（考虑实际应用）:</font><font size="4">主要指系统的适应性。</font></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">External requirements(外部需求）</font>      
+                <ul type="disc">
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">External       
+                    event handling（外部事件处理）</font></span>      
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">这是一个反映赋于应用程序影响(impose)外部需求的维，指出应用程序是否需要响应外部事件、何时响应等这方面的选择。维的取值如下：</font></span></li>
+                      <li><span lang="EN-US"><font color="#0000FF"><font size="4">No       
+                        external events（没有外部</font><font size="4">事件）：</font></font></span>      
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">应用程序不受外部事件（</font></span><span lang="EN-US"><font size="4">external       
+                            events）</font></span><span lang="EN-US"><font size="4">的影响，或者只是在执行到指定的用户命令时自动检查外部事件。例如，一个电子邮件程序可能检查是否有新的邮件，这种检查仅仅是在执行指定的命令时才进行。用户接口（user-interface)如果选择这种类型将为支持外部事件。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Process       
+                        events while waiting for       
+                        input（等待输入时处理事件）</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">应用程序必需处理外部事件（</font></span><span lang="EN-US"><font size="4">external       
+                            events）</font><font size="4">，但响应时间的要求不是很严格(stringent)，只是在执行用户输入命令时响应中断。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">External       
+                        events preempt user       
+                        commands(外部事件剥夺用户命令)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">要求外部事件具有较高的优先级，       
+                            随时中断用户命令的执行，这种需求在实时控制系统(real-time       
+                            control )中是很普遍的。</font></span></li>      
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">User       
+                    customizability(用户定制)</font></span>
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">这是一个反映赋于用户影响外部需求的维，设计空间可取三种值：</font></span></li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">High(高级)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">用户可以添加新的命令或重定义原命令的执行，同时也修改用户接口的细节。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Medium(中级)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">用户可以修改不影响命令语义(semantics)的用户接口细节，如，菜单项中的命令名、窗口的大小、颜色等允许用户自己定制。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Low(低级)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">很少或没有用户自定义的接口需求。</font></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF"><span lang="EN-US"><font size="4">User       
+                    Interface adaptability across devives(适应跨设备的用户接口)</font></span></font>      
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">该维依赖于应用程序中用户接口支持的I/O设备。它反映当改变不同的I/O设备类型时用户接口行为的改变程度(extent)，设计空间取值有：</font></span></li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">None(无)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">对于系统所支持的所有设备，所有的接口行为都是一样的</font></span><span lang="EN-US"><font size="4">，即无需任何改变。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Local       
+                        behavior change(局部行为改变)</font></span>      
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">当设备改变时，只允许改变个别的接口细节，如修改菜单的外观(appearance)。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Global       
+                        behavior change(全局行为改变)</font></span>      
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">跨越不同设备时，用户接口行为在表面上有较大的改变，比如需要改变用户接口类型。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Application       
+                        semantics change(应用语义改变)</font></span>      
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">需要根本上修改命令的语义。</font></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF"><span lang="EN-US"><font size="4">Computer       
+                    system organization(计算机系统组织)</font></span></font>      
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">该维反映应用程序执行的周围环境。主要有</font></span></li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Uniprocessing(单一处理)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">一个时间内只有一个应用程序</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Multiprocessing(多重处理)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">多个应用程序并发执行(concurrent)</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Distributed       
+                        processing(分布式处理)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">&nbsp;计算环境是网络的、多CPU的和不可忽略的(non-negligible)       
+                            通信开销等。</font></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">Basic interactive behavior（基本交互行为）</font>      
+                <ul type="disc">
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">Basic       
+                    interface class(基本接口类型)</font></span>      
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">该维表示用户接口所支持的人-机交互能力</font></span></li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Menu       
+                        selection(菜单选择)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">可以从事先定义的菜单中选择执行，每次选择后对应命令的执行也显示出来，允许多次选择。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Form       
+                        filling(表单填写)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">通过填写表单中指定的参数，决定程序的运行。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Command       
+                        language(命令语言)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">提供一种人工的符号语言，扩充过程定义，类似于一种程序语言。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Natural       
+                        language(自然语言)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">接口操作基于一种自然语言(如英语)的子集，关键问题是解释那些不明确的(ambiguous)输入。&nbsp;</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Direct       
+                        manipulation(直接操作)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">接口操作</font></span><span lang="EN-US"><font size="4">直接基于图形表示</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4">需要提出，上述中只有菜单选择和表单填写可以支持同一种系统结构，其他类型的需求是单一的。</font></span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">Practical considerations（考虑实际应用）</font>      
+                <ul type="disc">
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">Application       
+                    portability across user interface       
+                    styles(应用程序对用户接口风格的适应)</font></span>
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">该维定义了用户接口系统的适应性级别，表明用户接口对特定应用(</font></span><font size="4">aplication-specific)</font><span lang="EN-US"><font size="4">组件的隔离程度。</font></span></li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">High(高级)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">应用程序可以交叉使用不同的用户接口风格,       
+                            比如命令语言和菜单。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Medium(中级)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">应用程序独立于用户接口的少量风格变化，如菜单的外观。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Low(低级)</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">没有考虑用户接口的改变，或者当用户接口以改变时应用程序的改变是可以接受的。</font></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><font size="4" color="#0000FF">结构维例子</font><font size="4" color="#0000FF">(sample       
+            structure dimensions)</font>       
+            <ul type="disc">
+              <li><font size="4" color="#0000FF">用户接口的结构维</font>
+                <ul type="disc">
+                  <li>
+                    <table border="1" width="62%">
+                      <tr>
+                        <td width="100%">
+                          <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-border-alt: solid windowtext .5pt; mso-padding-alt: 0cm 5.4pt 0cm 5.4pt; border-style: none; border-width: medium" width="416">
+                            <tr>
+                              <td width="400" colspan="2" valign="top" style="border: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><b><font size="4">Structural       
+                                Dimensions</font></b><font size="4"><o:p>
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">1<o:p>
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Application  
+                                interface abstraction level<o:p> 
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Monolithic       
+                                program<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Abstract       
+                                device<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Toolkit<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Interaction       
+                                manager with fixed data types<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Interaction       
+                                manager with extensible data types<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Extensible       
+                                interaction manager<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">2<o:p>
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Abstract  
+                                device variability<o:p> 
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Ideal       
+                                device<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Parameterized       
+                                device<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Device       
+                                with variable operations<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Ad-hoc       
+                                device<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">3<o:p>
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Notation  
+                                for user interface definition<o:p> 
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Implicit       
+                                in shared user interface code<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Implicit       
+                                in application code<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">External       
+                                declarative notation<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">External       
+                                procedural notation<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Internal       
+                                declarative notation<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Internal       
+                                procedural notation<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">4<o:p>
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Basic of  
+                                communication<o:p>
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Event<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Pure       
+                                state<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">State       
+                                with hints<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">State       
+                                plus events<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">5<o:p>
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Control  
+                                thread mechanism<o:p> 
+                                </o:p> 
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">None<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Standard       
+                                processes<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Lightweight       
+                                processes<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Non-preemptive       
+                                processes<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Event       
+                                handlers<o:p>
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td width="31" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><font size="4">&nbsp;<span lang="EN-US"><o:p>
+                                </o:p>
+                                </span></font></p>
+                              </td>
+                              <td width="354" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm">
+                                <p class="MsoNormal"><span lang="EN-US"><font size="4">Interrupt       
+                                service routines<o:p>      
+                                </o:p>      
+                                </font>
+                                </span></p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </li>
+                  <li><font size="4" color="#0000FF">以上5种结构维可分为3</font><font size="4" color="#0000FF">组</font>
+                    <ul type="disc">
+                      <li><font color="#FF0000" size="4">Division of functions       
+                        and knowledge among modules(模块中功能和信息的划分)：</font><font size="4">这组维主要说明模块中功能的确定、模块间的连接、以及每个模块所包含的信息。</font></li>     
+                      <li><font color="#FF0000" size="4">Representation issues（表示问题）:</font><font size="4">这组主要考虑系统中使用的数据表示方法，也就是说要既要考虑在用户接口中使用的实际数据，又要考虑用于指定用户接口行为和外观的元数据(metadata)，系统中元数据可以是显式的(explicitly)，比如，用于描述对话框外观的数据结构，也可以是隐含的(implicitly)。&nbsp;</font></li>     
+                      <li><font color="#FF0000" size="4">Control flow、communication、synchronization       
+                        issues（控制流程、通信、同步问题）：</font><font size="4">这组主要考虑用户接口的动态行为(dynamic　behavior)。</font></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">Division of functions       
+                        and knowledge among modules(模块中功能和信息的划分）</font>     
+                <ul type="disc">
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">Application       
+                                interface abstraction level<o:p>      
+                    （应用接口抽象层）</font></span>     
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">在一定程度上，该维是一个关键的结构维，将其设计空间分为6个应用接口通过类型，它们由通信的抽象层来区分。</font></span></li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Monolithic      
+                        program （单一程序）</font></span>     
+                        <ul type="disc">
+                          <li>将所有接口功能集中在一个单一的程序中，没有区分特定应用程序和共享程序，只有一个模块也就不存在模块间的接口。主要适合于小的系统或是一些对用户接口的细节考虑全面的特殊系统。</li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Abstract      
+                        device（抽象设备）</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">共享组件是一些简单的设备驱动程序，为应用程序提供抽象设备的操作，接口行为的多数是由应用程序控制，少数也可由共享组件完成。在这类中应用程序接口就设备接口。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Toolkit      
+                        （工具包）</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">共享组件提供一个交互技术库（工具箱），如菜单、滚动条，应用程序则负责选择工具箱元素，并将它们组合成一个完整的接口。这样共享组件只能控制局部的用户接口风格部分，接口的全局行为由应用程序控制。共享组件和应用程序组件之间的交互是按照指定的交互技术（如得到菜单的选择）。对于工具箱中没有提供的交互技术，应用程序可以直接访问抽象设备层,      
+                            此时应用程序负责实现特定应用的数据类型和面向设备的表示间的转换（conversion）。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Interaction      
+                        manager with fixed data types      
+                        （固定数据类型的交互管理）</font>
+                                </span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">共享组件控制局部和全局的交互顺序(sequence)t      
+                            和格式（stylistic)的决定，它与应用程序的交互被表示为抽象信息的传递，这些抽象传递使用一组标准的数据（如整数、字符串），应用程序必须以标准的类型解释它的输入和输出。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Interaction      
+                        manager with extensible data      
+                        types（可扩展数据类型的交互管理）</font></span>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">在上一种功能的基础上，可能扩展数据类型，包括输入和输出的数据转换也要求是新的数据类型，要完整地使用这种方式，一般要求接口的外部表示与应用主程序分开。　</font></span></li>
+                        </ul>
+                      </li>
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">Extensible      
+                        interaction manager可扩展交互管理）</font></span>     
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">应用程序与共享组件间的通信也是通过抽象信息传递，应用程序可以定制扩展交互管理，这要求有而面向对象语言和继承机制。</font></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">Abstract       
+                                device variability<o:p>      
+                    （抽象设备可变性）</font>     
+                                </span>
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">这是描述设备接口(device      
+                        interface)的关健维，为了设备独立性的操作我们把设备接口视为抽象设备（abstract      
+                        device)。</font></span></li>
+                      <li><font size="4" color="#0000FF">Ideal device（观念设备）</font>     
+                        <ul type="disc">
+                          <li><font size="4">在观念设备中，操作及其结果经过详细说明(specify),比如，广泛使用的postScript的图像模型，可以不考虑实际的打印机或显示器的分辨率。在这种方法中，设备可变性都由设备驱动层隐藏，因此应用程序的可移植性很强，当观念设备与实际设备偏离很小时，这种方法非常有用。</font></li>
+                        </ul>
+                      </li>
+                      <li><font size="4" color="#0000FF">Parameterized device（参数化设备）</font>     
+                        <ul type="disc">
+                          <li><font size="4">设备按一些指定的参数分类，如参数可以是屏幕大小、颜色数、鼠标的键数等。设备独立性组件能根据参数值调整其行为，操作和结果也是经过详细说明的，但要依赖于对应的参数，这种方式的好处是可以设备以最适合的参数操作，但它使得设备独立性代码要分析设备的参数所有范围，在应用程序中实现开销很大。</font></li>
+                        </ul>
+                      </li>
+                      <li><font size="4" color="#0000FF">Device with variable      
+                        operations（可变操作的设备）</font>
+                        <ul type="disc">
+                          <li><font size="4">拥有一组良定义的设备操作，但设备独立性代码在选择操作实现时可能</font><font size="4">有很大地偏离(leeway),操作的结果也就可能不明确。这种方法在设备操作的选择在在抽象层而驱动程序可以在很大范围内选择时可以发挥作用。</font></li>
+                        </ul>
+                      </li>
+                      <li><font size="4" color="#0000FF">Ad-hoc device（专用设备）</font>     
+                        <ul type="disc">
+                          <li><font size="4">在很多实际系统中，抽象设备定义局限于一种特别的方式，设备的不同其操作行为也改变，这样应用程序可使用的设备种类的范围很小，也就是说应用只能使用专门的设备。　</font></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">Representation issues（表示问题）</font>     
+                <ul type="disc">
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">Notation       
+                                for user interface definition<o:p>      
+                    （用户接口定义符号）</font>     
+                                </span>
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">这是一个表示维，它说明用于定义用户接口外观和行为的技术。</font></span></li>
+                      <li><font color="#0000FF" size="4">Implicit in shared user      
+                        interface code（隐含在可共享用户接口代码）</font>     
+                        <ul type="disc">
+                          <li><font size="4">这是一种完全可接受的方式，比如，菜单的可视外观是隐含中工具箱提供的菜单过程中。</font></li>
+                        </ul>
+                      </li>
+                      <li><font color="#0000FF" size="4">Implicit in application      
+                        code（隐含在应用代码）</font>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">用户接口外观和行为隐含在应用中,可用于当应用程序中紧含着用户接口的情况。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><font color="#0000FF" size="4">External declarative      
+                        notation（外部说明符号）&nbsp;</font>
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">用户接口外观和行为在非过程部分定义，与应用程序分开。这种方式支持用户自定义。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><font color="#0000FF" size="4">External procedural      
+                        notation （外部过程符号）</font>     
+                        <ul type="disc">
+                          <li><span lang="EN-US"><font size="4">用户接口外观和行为在一个过程中定义并与应用程序分开，这种方式较灵活但使用困难。</font></span></li>
+                        </ul>
+                      </li>
+                      <li><font size="4" color="#FF0000">Internal declarative      
+                        notation （内部说明符号）</font></li>     
+                      <li><font size="4" color="#FF0000">Internal procedural      
+                        notation（内部过程符号）</font></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">Control flow、communication、synchronization       
+                        issues（控制流程、通信、同步问题）</font>
+                <ul type="disc">
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">Basic of       
+                                communication<o:p>
+                    （基本通信）</font>     
+                                </span>
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4" color="#0000FF">这是一个通信维，该维按模块间的可共享状态(shared      
+                        state)、事件(event)通信方法区分。事件(event)是指发生在一个离散时间的信息传递。</font></span></li>
+                      <li><font size="4" color="#FF0000">Event（事件）&nbsp;</font></li>
+                      <li><font size="4" color="#FF0000">Pure state      
+                        （纯状态）</font></li>
+                      <li><font size="4" color="#FF0000">State with hints      
+                        （状态提示）</font></li>
+                      <li><font size="4" color="#FF0000">State plus events（状态＋事件）</font></li>     
+                    </ul>
+                  </li>
+                  <li><span lang="EN-US"><font size="4" color="#0000FF">Control       
+                                thread mechanism<o:p>      
+                    （控制线程机制）</font>     
+                                </span>
+                    <ul type="disc">
+                      <li><span lang="EN-US"><font size="4">描述是否支持逻辑多线程，在用户接口系统中支持多线程是很重要的。</font></span></li>
+                      <li><font color="#0000FF" size="4">None&nbsp;</font>
+                        <ul type="disc">
+                          <li><font size="4">只使用一个单独的线程（只有一个线程的进程）</font></li>
+                        </ul>
+                      </li>
+                      <li><font color="#0000FF" size="4">Standard      
+                        processes&nbsp;</font>
+                        <ul type="disc">
+                          <li>　</li>
+                        </ul>
+                      </li>
+                      <li><font color="#0000FF" size="4">Lightweight      
+                        processes&nbsp;</font></li>
+                      <li><font color="#0000FF" size="4">Non-preemptive      
+                        processes&nbsp;</font></li>
+                      <li><font color="#0000FF" size="4">Event handlers&nbsp;</font></li>     
+                      <li><font color="#0000FF" size="4">Interrupt service      
+                        routines</font></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="5">2.用户接口结构的设计规则</font>
+        <ul type="disc">
+          <li><font color="#0000FF" size="4">规则指示了维之间的关系程度，主要有两种类型</font>
+            <ul type="disc">
+              <li><font size="4" color="#0000FF">功能维与结构维的关系规则</font>
+                <ul type="disc">
+                  <li><font size="4">允许系统需求驱动结构设计</font></li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">结构维内部之间的关系规则</font>
+                <ul type="disc">
+                  <li><font size="4">描述</font><font size="4">系统内部的一致性(consistency),这种规则使要发现一个具有更高得分的设计变得复杂。</font></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><font size="4" color="#0000FF">规则例子(sample rules)</font>     
+            <ul type="disc">
+              <li><font size="4">if exteral event handling requires preemption 
+                of user commands, then a preemptive control-thread 
+                mechanism(standard process, lightweight processes,or interrupt 
+                service routines)is strongly favored. Without such a mechanism, 
+                very severe constraints must be placed on all user-interface and 
+                application processing in order to guarantee adequate response 
+                time.</font></li>
+              <li><font size="4">High user customizability requirements favor 
+                external notation for user-interface behavior. Implicit and 
+                internal notations are usually more difficult to access and more 
+                closly coupled to application logic than external notations.</font></li>
+              <li><font size="4">A distributed system organization favors 
+                event-based communication. State-based communication requires 
+                shared memory or some equivalent, which is offen expensive to 
+                access in such an environment.</font></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><font color="#0000FF" size="5">三、量化设计空间(Quantified Design    
+    Space，QDS)</font>
+    <ul type="disc">
+      <li><font color="#0000FF" size="5">1.简介</font>
+        <ul type="disc">
+          <li><font size="4">人们对软件产品(artifact)的分析已经有多年的研究和实践。在理论和经验上，系统的性能(performance)、复杂性(complexity)、可靠性(reliable)、可测试性(testability)以及其他所期望的质量的度量已经成为软件工程的主要组成(integral     
+            part)。然而软件产品作为软件开发过程的最后一个阶段，对其分析的是重要的。现在已经达到共识：软件产品可以与开发过程所依赖的设计一样好。</font></li>
+          <li><font size="4">在过去，软件分析工具的开发并没伴随(accompany)人们对软件设计的逐惭关注而发展。原型技术（&nbsp;prototyping     
+            techniques)能证明（demonstrate）设计阶段的可行性（feasibility）或研究（investigate）设计中的特殊问题。形式软件检查(inspection)可以在后期开发阶段展开之前尽早地发现设计上的错误。形式描述语言(formal     
+            specification language）可以用于描述一个设计。但现在不没有一个能从理论和质量上对设计进行分析的工具。这样的工具应能提供一些度量设计符合产品所拥有的需求的程度，而无需构造一个原型，并且能使一个设计者将自己的知识应用于一个应用领域或致力于软件设计和构造。</font></li>    
+          <li><font size="4" color="#FF0000">量化设计空间(Quantified Design     
+            Space,QDS)</font><font size="4">是美国卡内基.梅隆（Carnegic     
+            Mellon)大学（CMU）提出的。<b>QDS</b>的目标是分析和比较一个指定应用的各种软件设计，<b>QDS</b>的思想是基于设计空间(design     
+            space)和质量配置函数（quality function deployment，<b>QFD</b>)，它是一种将系统需求转换为可选择的功能和结构设计，量化（quantified)分析各种的可能选择及其组合。<b>QDS</b>可以为一个期望系统(desired     
+            system)制作(produce)一个设计模型，也可以用来分析和对比已有的设计，或对现有的设计提出改进建议。</font></li>
+          <li><font color="#0000FF"><font size="4">质量配置函数（</font><font size="4">QFD)</font><font size="4">　</font></font>
+            <ul type="disc">
+              <li><font size="4">QFD是一个质量保证（assurance）技术，其作用是将客户的需求转换为产品从需求分析到设计开发各个阶段的技术需求，或转换为制造(manufacturing)和维护(support)。1997年QFD应用于日本的汽车制造并获得显著的效果，现在已经在日本和美国得到普遍应用。QFD的基本目标（fundamental）是“客户的声音”(voice     
+                of customer)出现在（manifested）产品开发过程的各个阶段。QFD的观点（philosophy）是让所有的投资者对产品开发达成一个共识（common     
+                understanding)。</font></li>
+              <li><font size="4" color="#0000FF">QFD技术带来的好处</font>
+                <ul type="disc">
+                  <li><font size="4">问题(issues)发现在开发阶段，并且是问题形成之前。</font></li>
+                  <li><font size="4">决定(decision)记录在一个有结构的框架中，必要时可以跟踪(trace)。</font></li>
+                  <li><font size="4">在开发过程中过程的各个阶段需求(requrement)不容易被误解（misinterpreted)。</font></li>
+                  <li><font size="4">重复工作(rework）减少，需求改变最小化，减少产品进入市场所花的时间。</font></li>
+                  <li><font size="4">由定义的框架表示</font><font size="4">产品知识(knowledge)，不仅可供现有产品开发使用，还可用于将来的工作。</font></li>
+                  <li><font size="4">最终产品更接近的客户需求。</font></li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">QFD过程</font>
+                <ul type="disc">
+                  <li><font size="4" color="#FF0000">QFD的基本原理（philosophy）是通过一组详细说明的图形符号和用于开发过程各个阶段的良好定义的转换机制（将需求转换为实现）。QFD实现协作工程的多用户设计系统的产品分析（同时有多用户从从的单个设计侧面协同工作）。QFD过程的步骤如下</font></li>
+                  <li><font size="4"><font color="#FF0000">步骤1</font>：</font><font size="4">建立产品或服务开发的范围，招集投资者代表参与QFD工作，收集各阶段的用户需求（这些需求用户可按它们自己的语言表示），由交叉功能小组分析这些需求并达成共识，将这些需求加入到QFD表（如图5.4）的左边列中。</font></li>
+                  <li><img border="1" src="sa5-04.bmp" width="705" height="711"></li>
+                  <li><font color="#FF0000" size="4">步骤</font><font color="#FF0000" size="4">2</font><font size="4">:QFD小组选择满足用户需求的实现机制(realization    
+                    mechanism),这些机制组织在QFD图表的上端，建立用户需求对实现机制的关系矩阵。</font></li>
+                  <li><font color="#FF0000" size="4">步骤3</font><font size="4">:为每个实现机制建立目标值（target    
+                    value),并填入QFD图表的关系矩阵的下方，这些目标可以是量化数值或量化目标，但这些目标都是可以主观验证的（verifiable）。</font></li>
+                  <li><font color="#FF0000" size="4">步骤4</font><font size="4">:建立机制与需求的关系（relationship），以确定不实现用户需求哪一种机制是最重要的每一种关系可用图形符号表示其程度（<i>high、medium、Weak</i>），如果某个机制不满足一个需求，则对应的关系矩阵的值为空。例如，图中，<i>database 
+                    manager</i>机制与需求<i>Work with large designs</i>有强（<i>strong</i>)的系统性能关系，但与需求<i>Apply 
+                    expert knogledge</i>系统能力上关系较弱(<i>Weak</i>)。这些关系赋于一个权值(weight)以便计算每个实现机制的重要性。分析这些关系是QFD的主要能力(strength)之一,比如，图5.4中，起始可能认为<i>database 
+                    manager</i>机制主要满足<i>Support cooperative design</i>,    
+                    但更进一步分析表明，有效的数据库<i>database 
+                    manager</i>机制对</font>需求<font size="4"><i>work with 
+                    large designs</i>也有很好的性能，这种“副效益”(side-benefit)在QFD框架中可以很清楚地表示出来。</font></li>
+                  <li><font color="#FF0000" size="4">步骤</font><font color="#FF0000" size="4">5</font><font size="4">:计算机制间的相关性（correlations）即各种实现机制间的正、负关系，正数关系表示两种机制彼此都很好，负数关系表示一种机制的实现会干扰(interfere)另一个机制的实现。这些关系在QFD图表的上方，用图形符号表示关系程度，空格表示两个机制没有联系。比如，图5.4中表明ASCII文件的使用与数据库管理有很严重的负关系。</font></li>
+                  <li><font color="#FF0000" size="4">步骤</font><font color="#FF0000" size="4">6</font><font size="4">:估计(assess)每一种机制的实现难度也根据组织的强弱，困难等级(rating）记录在QFD图表中<i>target 
+                    value</i>的上方。</font></li>
+                  <li><font color="#FF0000" size="4">步骤</font><font color="#FF0000" size="4">7</font><font size="4">:计算每种机制的重要等级：一种机制的各关系值乘以QFD表右边列(<i>customer 
+                    importance</i>)对应客户值的并相加得到这种机制的技术绝对值。为了明确起见，可以再将这些绝对值转换为相对值，它们分别记录在QFD图表的底部。</font></li>
+                  <li><font color="#FF0000" size="4">步骤</font><font color="#FF0000" size="4">8</font><font size="4">:    
+                    建立了关系（relationship）和相关性(correlation)后，FQD小组就可以分析该框架，选择在产品中使用的机制。</font>
+                    <ul type="disc">
+                      <li><font size="4">a.确定每种机制的目标值；</font></li>
+                      <li><font size="4">b.检查（inspect）每种相关性,找出可能冲突的机制，这突出某种机制允许为其相关性赋于一个权值，组织困难等级用数据表示出来。</font></li>
+                      <li><font size="4">c.排除具有负相关性、高困难等级、风险性和低技术重要性的机制</font></li>
+                      <li><font size="4">d.对于尚未充足表达的需求，可以再次检查。</font></li>
+                    </ul>
+                  </li>
+                  <li><font size="4">过程的结果可以作为下一阶段的产品开发。</font></li>
+                  <li><font size="4" color="#FF0000">QFD总结：</font><font size="4">为完成这个QFD例子，每个实现机制&nbsp;（realization    
+                    mechanism)要指出其目标值(target value),实现机制的各列要按相对技术重要性重排。这个框架还可以作为下一个QFD的输入，比如选定<i>database    
+                    manager</i>机制，另个指定通信使用(<i>client-server</i>),作为下一阶段QFD的输入。</font></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="5">2.量化设计空间(QDS)</font>
+        <ul type="disc">
+          <li><font color="#0000FF" size="4">QDS原理</font>
+            <ul type="disc">
+              <li><font size="4">QDS的内容是设计空间的概念和QFD技术。</font></li>
+              <li><font size="4">QDS从设计空间中提取概念、一个设计分解成维及其可选择的设计、设计维间的正负相关性，分析需求与实现机制间的关系，应用QFD过程。</font></li>
+              <li><font size="4">这种基于QFD框架的设计空间的实现称为量化设计空间(QDS)</font></li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="4">应用QFD框架实现一个设计空间</font>
+            <ul type="disc">
+              <li><font size="4">QFD过程的共同目标是获取设计知识，即关于实现机制与客户需求间的关系和机制间相关性的知识。</font></li>
+              <li><font size="4">设计空间的规则(rule)能从QFD框架中的关系和相关性获得。比如，一个规则表明一个“distributed    
+                system”不能在一个“monolithic program”可实现。</font></li>   
+              <li><font size="4" color="#0000FF">通用功能设计空间（Generalized    
+                Functional Design Space）</font>   
+                <ul type="disc">
+                  <li><font size="4" color="#0000FF">客户需求列在表的左边，赋于这些客户需求的权置于表中另一个列，功能维及其可选择的设计空间位于表的上方，并与需求构成的关系矩阵，关系值越大表明功能越能满足需求，计算每个功能的“<i>calculated 
+                    weight</i>”,及各需求的权，表的“<i>design 
+                    decision</i>”中1表示可选用的功能。“effective    
+                    weight”为“<i>calculated weight</i>”与“<i>design 
+                    decision</i>”的积。</font></li>
+                  <li><img border="0" src="sa5-05.bmp" width="627" height="328"></li>
+                  <li>　</li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">通用结构设计空间（Generalized    
+                Structure Design Space）</font>   
+                <ul type="disc">
+                  <li><img border="1" src="sa5-06.bmp" width="671" height="453"></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">结构设计可选择相关性(Corrlation   
+                of Structural Deisgn Alternative)</font>  
+                <ul type="disc">
+                  <li><img border="1" src="sa5-07.bmp" width="619" height="317">　</li>
+                </ul>
+              </li>
+              <li><font size="4" color="#0000FF">量化设计空间值(score)</font>
+                <ul type="disc">
+                  <li><img border="1" src="sa5-08.bmp" width="311" height="175"></li>
+                  <li>Let E1、E2、...、En　be the effective weight of&nbsp; 
+                    each selected structural design alternative</li>
+                  <li>Let Cmn be the correlation factor for alternatives m and n</li>
+                  <li>for each selected structural design alternative, add the 
+                    effective weight of the design alternative to that of each 
+                    other selected alternative, and multipy each term of the sum 
+                    by the correlation factor from the matrix. The product sums 
+                    are then added together, giving the final score for the 
+                    design:Sroce=∑Cij(Ei+Ej)</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="5">3.结论</font></li>
+    </ul>
+  </li>
+</ul>
+<p><font color="#0000FF" size="6"><a href="software%20architecture.htm#L5_0">返回</a></font></p>
+<p>=======================================================================================</p>
+<p>　</p>
+
+</body>
+
+</html>
+
+
+
+

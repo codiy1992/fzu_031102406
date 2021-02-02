@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyFirstCG", "MyFirstCG\MyFirstCG.vcxproj", "{2BD89D72-93B7-45DC-A9DE-726059A62665}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "彩色立方体", "彩色立方体\彩色立方体.vcxproj", "{856B88BF-BBB9-4D48-8AA4-4CF186E12DF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BD89D72-93B7-45DC-A9DE-726059A62665}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2BD89D72-93B7-45DC-A9DE-726059A62665}.Debug|Win32.Build.0 = Debug|Win32
+		{2BD89D72-93B7-45DC-A9DE-726059A62665}.Release|Win32.ActiveCfg = Release|Win32
+		{2BD89D72-93B7-45DC-A9DE-726059A62665}.Release|Win32.Build.0 = Release|Win32
+		{856B88BF-BBB9-4D48-8AA4-4CF186E12DF0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{856B88BF-BBB9-4D48-8AA4-4CF186E12DF0}.Debug|Win32.Build.0 = Debug|Win32
+		{856B88BF-BBB9-4D48-8AA4-4CF186E12DF0}.Release|Win32.ActiveCfg = Release|Win32
+		{856B88BF-BBB9-4D48-8AA4-4CF186E12DF0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

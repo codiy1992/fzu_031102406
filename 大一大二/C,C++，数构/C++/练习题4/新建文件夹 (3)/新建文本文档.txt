@@ -1,0 +1,26 @@
+修改时钟模拟的实现
+主函数增加两个基类指针time1和time2
+主函数根据输入的时间信息，相应建立Time_24hours类对象或者Time_12hours类对象，并且取址赋给基类指针time1和time2，使用如下比较语句比较time1和time2的大小并且输出比较结果。
+     if (time1 < time2)
+        输出比较结果
+     else if  (time1 > time2)
+               输出比较结果
+             else if (time1 == time2)
+                     输出比较结果
+                    else 
+                      cout<<“There is something wrong with the input.”
+                          <<“Please check it!”<<endl;
+输入格式： 测试输入包含多个测试用例，第一行为测试用例个数，其后每两行为一个测试用例，每行共四个数字，第一个数字为进制，121表示输入为12进制AM时间，122表示输入为12进制PM时间，输入为24表示输入为24进制时间，第二个数字为hour，第三个数字为minute，第四个数字为second。
+提示：增加虚函数（类型转换函数）实现多态
+输入样例：
+3
+122 1 2 3
+24 13 2 3
+122 11 59 59
+24 12 20 35
+121 10 59 59
+122 3 34 56
+输出样例：
+time1 PM 01:02:03 == time2 13:02:03
+time1 PM 11:59:59 > time2 12:20:35
+time1 AM 10:59:59 < time2 PM 03:34:56

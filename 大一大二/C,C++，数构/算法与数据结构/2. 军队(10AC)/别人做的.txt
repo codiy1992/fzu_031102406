@@ -1,0 +1,215 @@
+/*
+题目:见文件尾
+相关知识:链表的增/删/连接/输出.
+时间:2012-9-16
+*/
+#include <IOSTREAM>
+using namespace std;
+int main()
+{
+	int N=0,M=0,K=0,operate1=0,operate2=0;//题目中的相关变量.operate1,operate2为操作命令中的两个变量
+	char operate=' ';						//操作命令的关键字
+	scanf("%d%d",&N,&M);
+	typedef struct node      //军队结点类型。number代表军队人数，next指向同一军团的下一个军队;
+	{
+		long number;        //军队人数
+		struct node * next; //指向下一个军队
+	}Node,* NodePoint;
+	NodePoint nodepoint=NULL,oldnodepoint=NULL,nextnodepoint=NULL;//nodepoint指向当前结点;oldnodepoing指向上一个节点; nextnodepoint指向下一个节点
+	typedef struct list     //地区结点类型
+	{
+		NodePoint head;     //指向某地区第一个军队的指针
+		NodePoint tail;		//指向某地区最后一个军队的指针
+	}List,*ListPoint;
+	ListPoint area=new List[N];//地区顺序列表
+	for(int Ntime=0;Ntime<N;Ntime++)//输入N个地区的军队数据
+	{
+		scanf("%d",&K);
+		area[Ntime].head=area[Ntime].tail=new Node;  //某地区第一个军队
+		scanf("%d",&area[Ntime].tail->number);
+		area[Ntime].tail->next=NULL;
+		while(--K)                               //每一个军队开辟一个结点.并更改相关指针.除去上面的一个军队,这边处理K-1个军队
+		{
+			area[Ntime].tail->next=new Node;
+			area[Ntime].tail=area[Ntime].tail->next;
+			scanf("%d",&area[Ntime].tail->number);
+			area[Ntime].tail->next=NULL;
+		}
+//测试输出begin
+// 		printf("测试输出:第%d地区:",Ntime);
+// 		for(NodePoint test=area[Ntime].head;test!=NULL;test=test->next)
+// 		{
+// 			printf("_%d_",test->number);
+// 		}
+// 		printf("\n");
+//测试输出end
+	} //N个地区数据
+
+	getchar();   //获得每行末尾的换行回车,防止其影响获得操作字
+	for(int Mtime=0;Mtime<M;Mtime++)
+	{
+		operate=getchar(); //获得操作字
+//		printf("operate:%c\n",operate);   //测试输出
+		switch(operate)
+		{
+		case 'U':                        //直接把operate2的军队接到operate1军队的尾部.并更改相关指针
+			{
+				scanf("%d%d",&operate1,&operate2);
+//				printf("1:%d_2:%d\n",operate1,operate2);
+				if (area[operate2-1].tail==NULL)   //如果operate2地区为空,则不用转移军队;
+				{
+					break;
+				}
+				if (area[operate1-1].tail==NULL) //如果operate1地区为空
+				{
+					area[operate1-1]=area[operate2-1];
+				}
+				else
+				{
+					area[operate1-1].tail->next=area[operate2-1].head;
+					area[operate1-1].tail=area[operate2-1].tail;
+					area[operate2-1].head=area[operate2-1].tail=NULL;
+				}
+
+				break;;
+			}
+		case 'I':
+			{
+				scanf("%d%d",&operate1,&operate2);
+//				printf("1:%d_2:%d\n",operate1,operate2);//测试输出
+				nodepoint=new Node;
+				if (area[operate1-1].head==NULL)         //如果operate1地区原本军队为空,则必须要修改尾指针
+				{
+					area[operate1-1].tail=nodepoint;
+				}
+				nodepoint->next=area[operate1-1].head;
+				nodepoint->number=operate2;
+				area[operate1-1].head=nodepoint;
+				break;;
+			}
+		case 'D':
+			{
+				scanf("%d%d",&operate1,&operate2);
+//				printf("1:%d_2:%d\n",operate1,operate2);//测试输出
+				for(nodepoint=area[operate1-1].head;nodepoint!=NULL;)
+				{
+					if (nodepoint->number==operate2)     //如果该结点与数operate2相等,则删去结点.并修改相关指针
+					{
+						if (nodepoint==area[operate1-1].head)  //如果该结点是头结点
+						{
+							area[operate1-1].head=nodepoint->next;
+							if (nodepoint->next==NULL)           //如果该地区只有一个军队
+							{
+								area[operate1-1].tail=NULL;
+							}
+						} 
+						else if(nodepoint!=area[operate1-1].tail)   //如果该结点是中间结点
+						{
+							oldnodepoint->next=nodepoint->next;
+						}
+						else                                        //如果该结点是尾结点
+						{
+							oldnodepoint->next=NULL;
+							area[operate1-1].tail=oldnodepoint;
+						}
+					//	printf("deleteO:%d_%d\n",oldnodepoint->number,nodepoint->number);//测试输出
+					//	oldnodepoint=nodepoint;                              //如果此结点要删去,则不用更改oldnodepoint,防止出现野指针
+						nextnodepoint=nodepoint->next;
+						delete nodepoint;
+						nodepoint=nextnodepoint;
+						
+					}
+					else                                   //保留oldnodepoint方便删除           
+					{
+						oldnodepoint=nodepoint;
+						nodepoint=nodepoint->next;
+						
+					}
+					
+				}
+				break;;
+
+			}
+		case 'Q':
+			{
+				scanf("%d",&operate1);
+//				printf("1:%d\n",operate1);//测试输出
+				nodepoint=area[operate1-1].head;
+				if (nodepoint==NULL)			//该地区军团为空
+				{
+					printf("%d\n",-1);
+				} 
+				else
+				{
+					for (;nodepoint!=NULL;nodepoint=nodepoint->next)
+					{
+						printf("%d",nodepoint->number);
+						if (nodepoint==area[operate1-1].tail)      //注意行尾不能有空格
+						{
+							printf("\n");
+						} 
+						else
+						{
+							printf(" ");
+						}
+					}
+				}
+
+				break;
+
+			}
+		default:
+			{
+				printf("%s","input the operater error!\n");//测试输出
+			}
+		}
+		getchar();//获得每行末尾的换行回车,防止其影响获得操作字
+	}
+	return 0;
+}
+
+
+
+
+
+/*题目
+
+每个地区有一个编号（从 1 到 N），如果一个地区有军队的话，这些军队将组成一个军
+团。指挥中心将发布的命令如下：
+U a b:将 b 地区军团的调到 a 地区，从而组成一个新的军团。为了便于管理，每次新加
+入的军队将按顺序加入到 a 军团后面。数据保证 a 与 b 不相同。
+I a x:将一支人数为 x 的军队调到 a 地区。为了便于管理，每次新加入的军队将加入到
+a 军团前面。
+D a x:将 a 地区中军队人数为 x 的调走。若不存在，则不执行。
+Q a：询问 a 地区的具体军事信息（即按顺序输出该军团中每个军队的人数）。
+★数据输入
+输入第一行为一个正整数 N ,M(2 <= N,M <= 1000)。
+接下来 N 行，每行第一个数 K 表示该地区军队的个数 K(1<=K<=100)，接下来 K 个数
+表示各个军队的人数信息(0<=ai<2^31)。
+接下来 M 行，每行一个操作。
+★数据输出
+对于每个询问操作，输出一行表示 a 地区具体军事信息，每两个数之间空格隔开,，行
+末无空格。若 a 内无元素，输出-1。
+输入示例
+输出示例
+3 9
+2 1 2
+3 1 2 3
+4 3 2 1 3
+U 1 2
+Q 1
+Q 2
+U 3 1
+Q 3
+I 1 1
+Q 1
+D 3 1
+Q 3
+
+
+1 2 1 2 3
+-1
+3 2 1 3 1 2 1 2 3
+1
+3 2 3 2 2 3
+*/

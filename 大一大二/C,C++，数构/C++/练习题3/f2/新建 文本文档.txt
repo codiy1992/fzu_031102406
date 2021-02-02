@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+class time
+{
+public:
+	time(){hour=0;minute=0;second=0;}
+time(int h,int m,int s){hour=h;minute=m;second=s;}
+void display();
+time operator--(int);
+private:
+	int hour;
+	int minute;
+	int second;
+};
+
+
+
+
+
+
+time time::operator--(int)
+{
+	second--;
+	if(second<0)
+	{
+	second+=60;
+	minute--;
+	if(minute<0)
+	{
+		minute+=60;
+		hour--;
+	}
+
+	}
+
+
+return *this;
+}
+
+
+
+
+
+
+
+
+
+void time::display()
+{
+	if(hour<10)
+	cout<<"0"<<hour<<":";
+	else
+		cout<<hour<<":";
+	if(minute<10)
+	cout<<"0"<<minute<<":";
+	else
+		cout<<minute<<":";
+
+		if(second<10)
+	cout<<"0"<<second;
+	else
+		cout<<second;
+
+}
+
+
+int main()
+{
+	int i,h,m,s;
+	for(i=0;;i++)
+	{
+	cin>>h>>m>>s;
+	time t1(h,m,s);
+if(h!=0||m!=0||s!=0)
+{
+	cout<<"predecrement=";t1.display();
+t1--;
+cout<<",predecrement=";t1.display();cout<<"\n";
+}
+else return 0;
+	}
+}

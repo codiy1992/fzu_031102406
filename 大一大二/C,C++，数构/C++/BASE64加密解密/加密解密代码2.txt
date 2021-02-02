@@ -1,0 +1,190 @@
+/*
+*   File: Base64.c
+*   arthor: Zhaoshuo我爱老婆
+*   date: 2008.2.26
+*   brief: This project is encoding or decoding the files.
+*/
+
+#include<stdio.h>
+
+typedef unsigned char byte;
+
+const char codingval[64]={'A','B','C','D','E','F','G','H',
+                          'I','J','K','L','M','N','O','P',
+                          'Q','R','S','T','U','V','W','X',
+                          'Y','Z','a','b','c','d','e','f',
+                          'g','h','i','j','k','l','m','n',
+                          'o','p','q','r','s','t','u','v',
+                          'w','x','y','z','0','1','2','3',
+                          '4','5','6','7','8','9','+','/'};
+
+int getval(char c)//我爱老婆
+{
+    int i;
+    int num=64;
+
+    for(i=0;i<64;i++)
+    {
+        if(codingval[i]==c)
+        {
+            num=i;
+            break;
+        }
+    }
+    
+    return num;
+}
+
+void writechar(int c,int *flag,FILE *dest)//我爱老婆
+{
+    fputc(codingval[c],dest);
+    *flag++;
+    if(*flag==76)
+    {
+        fputc('\n',dest);
+        *flag=0;
+    }
+}
+
+void encoding(char *sourcefile,char *destfile)//我爱老婆
+{
+    FILE *file,*dest;
+    file=fopen(sourcefile,"rb");
+    dest=fopen(destfile,"wb");
+    byte f[3];
+    int flag=0;
+
+    if(file==NULL)
+    {
+        printf("Cannot open the %s file for input!",sourcefile);
+        exit(1);
+    }
+    
+    int i=0;
+
+    int c;
+    while(!feof(file))
+    {
+        f[i]=fgetc(file);
+        i++;
+        if(i==3)
+        {
+            c=(f[0]>>2)&0x3F;
+            writechar(c,&flag,dest);
+
+            c=((f[0]<<4)|(f[1]>>4))&0x3F;
+            writechar(c,&flag,dest);
+
+            c=((f[1]<<2)|(f[2]>>6))&0x3F;
+            writechar(c,&flag,dest);
+
+            c=f[2]&0x3F;
+            writechar(c,&flag,dest);
+            
+            i=0;
+        }
+    }
+
+    if(i==1)
+    {
+        c=(f[0]>>2)&0x3F;
+        writechar(c,&flag,dest);
+        c=(f[0]<<4)&0x3F;
+        writechar(c,&flag,dest);
+        fputc('=',dest);
+        fputc('=',dest);
+    }
+
+    if(i==2)
+    {
+        c=(f[0]>>2)&0x3F;
+        writechar(c,&flag,dest);
+        c=((f[0]<<4)|(f[1]>>4))&0x3F;
+        writechar(c,&flag,dest);
+        c=(f[1]<<2)&60;
+        writechar(c,&flag,dest);
+        fputc('=',dest);
+    }
+
+    fclose(dest);
+    fclose(file);
+}
+
+void decoding(char *sourcefile,char *destfile)//我爱老婆
+{
+    FILE *file,*dest;
+    file=fopen(sourcefile,"rb");
+    dest=fopen(destfile,"wb");
+    char ch;
+    int f[4];
+    int flag=0;
+
+    if(file==NULL)
+    {
+        printf("Cannot open the %s file for input!",sourcefile);
+        exit(1);
+    }
+
+    byte c;
+    int val;
+    while(!feof(file))
+    {
+        ch=fgetc(file);
+        val=getval(ch);
+        if(val!=64)
+        {
+            f[flag]=val;
+            flag++;
+        }
+
+        if(flag==4)
+        {
+            c=(f[0]<<2)|(f[1]>>4);
+            fputc(c,dest);
+
+            c=(f[1]<<4)|(f[2]>>2);
+            fputc(c,dest);
+ 
+            c=(f[2]<<6)|f[3];
+            fputc(c,dest);
+
+            flag=0;
+        }
+    }
+
+    if(flag==2)
+    {
+        c=(f[0]<<2)|(f[1]>>4);
+        fputc(c,dest);
+    }
+
+    if(flag==3)
+    {
+        c=(f[0]<<2)|(f[1]>>4);
+        fputc(c,dest);
+    
+        c=(f[1]<<4)|(f[2]>>2);
+        fputc(c,dest);
+    }            
+}
+
+int main(int argc,char *argv[])//我爱老婆
+{
+    if(*(argv[1]+1)=='e')
+    {
+        encoding(argv[2],argv[3]);
+    }
+
+    else if(*(argv[1]+1)=='d')
+    {
+        decoding(argv[2],argv[3]);
+    }
+
+    else
+    {
+        printf("The first argument is wrong!");
+
+        exit(0);
+    }
+}
+

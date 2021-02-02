@@ -1,0 +1,961 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Software Architecture</title>
+<script language="JavaScript" fptype="dynamicoutline">
+<!--
+function dynOutline() {}
+//-->
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" src="outline.js">
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" for="document" event="onreadystatechange()">
+<!--
+initOutline()
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFCC" onclick="dynOutline()">
+
+<p><font color="#FF0000"><font size="6">S</font><b><font size="6">oftware      
+Architecture&nbsp;</font></b></font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">&nbsp; 　　　　　－<b><font size="5">principle       
+and practice</font></b></font></p>      
+<hr>
+<p><a name="L10_1"></a><font size="6">第八讲　软件体系结构描述</font></p>
+<p><span lang="EN-US">&nbsp;</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">本章主要内容：</font></span></p>
+<p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5"><a href="#L10_1-1" name="L10_1-0">一、软件体系结构形式化的意义</a></font></span></p>
+<p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5"><a href="#L10－2－1" name="L10－2－0">二、软件体系结构描述的方法</a></font></span></p>
+<p class="MsoNormal"><font size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><a name="L10-3-0" href="#L10-3-1">三、</a></span><a name="L10-3-0" href="#L10-3-1"><span lang="EN-US">Z  
+Notation</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">简介</span></a></font></p>
+<font size="5"><span style="mso-bidi-font-size: 12.0pt; font-family: 宋体; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman; mso-bidi-font-family: Times New Roman; mso-font-kerning: 1.0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-CN; mso-bidi-language: AR-SA"><a href="#L10-4-1" name="L10-4-0">四、</a></span><a href="#L10-4-1"><span lang="EN-US" style="mso-bidi-font-size: 12.0pt; font-family: Times New Roman; mso-fareast-font-family: 宋体; mso-font-kerning: 1.0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-CN; mso-bidi-language: AR-SA">Z  
+Notation</span><span style="mso-bidi-font-size: 12.0pt; font-family: 宋体; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman; mso-bidi-font-family: Times New Roman; mso-font-kerning: 1.0pt; mso-ansi-language: EN-US; mso-fareast-language: ZH-CN; mso-bidi-language: AR-SA">的应用例子</span></a></font>
+<hr>
+<p class="MsoNormal"><b><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><font color="#0000FF" size="5"><a name="L10_1-1"></a>一、软件体系结构形式化的意义</font></span><span lang="EN-US"><o:p>
+</o:p>
+</span></b></p>
+<ul type="circle" dynamicoutline initcollapsed>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">通常，好的结构设计是决定软件系统成功的主要因素，然而，目前许多有应用价值的结构，如管道</span><span lang="EN-US">/</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">过滤器、层次结构、</span><span lang="EN-US">C/S</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">结构等，他们都被认为是一种自然的习惯方法，并应用在特定的形式。因此，软件系统的设计师还没有完全开发出系统结构的共性，制定出设计间的选择原则，从特定领域中研究出一般化的范例，或将自己的设计技能传授他人。</span></font></li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">要使软件体系结构的设计更具有科学性，一个重要的步骤是就是要有一个合适的形式化基础。这一章我们将介绍软件体系结构的形式化描述（</span><span lang="EN-US">formal  
+    specification</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">）。</span></font></li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">人们已经认识到，对于一个成熟的工程学科，形式模型（</span><span lang="EN-US">formal  
+    model</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">）和形式化分析技术</span><span lang="EN-US">(techniques  
+    for formal analysis)</span><span style="font-family: 
+宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">是基础（</span><span lang="EN-US">cornerstone</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">），只是不同工程学科他们使用的形式不同。形式化方法可以提供精确、抽象的模型，提供基于这些模型的分析技术，作为描述指定工程设计的表示法，也有助于模拟系统行为。因此在软件体系结构领域，它的形式化描述也有很多的用处：</span></font></li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font size="5" color="#0000FF"><span lang="EN-US">1</span><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">．</span><span lang="EN-US">The  
+    architecture of a specific system(</span><span style="font-family: 
+宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">指定系统的体系结构</span><span lang="EN-US">)</span></font>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">这种类型的形式化，可以提供从软件结构来设计一个特定的系统，这些形式化方法可以作为功能规格说明书的一个部分，扩充系统结构的非形式的特征，还可以详细分析一个系统。</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font color="#0000FF" size="5"><span lang="EN-US">An  
+    architecture style(</span><span style="font-family:宋体;mso-ascii-font-family: 
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">软件结构风格</span><span lang="EN-US">)</span></font>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">这种类型的形式化，可以阐明一般结构化概念的含义，如，结构化连接、层次结构化的表示、结构化风格，在理想的情况下，这种形式化方法可以提供在结构一级基于推理方法分析系统。</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font size="5" color="#0000FF"><span lang="EN-US">Formal  
+    semantics for architectural description language(</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family: 
+&quot;Times New Roman&quot;">结构描述语言的形式语义</span><span lang="EN-US">)</span></font><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;"></span>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">这种类型的形式化，是用语言的方法描述结构，并应用传统语言的技术表示描述语言的语义。</font></span></li>
+    </ul>
+  </li>
+</ul>
+<p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family: 宋体; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman"><a href="#L10_1-1">返　回</a></span></font></p>
+<hr>
+<p class="MsoNormal"><b><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5"><a name="L10－2－1"></a><font color="#0000FF">二、软件体系结构描述的方法</font></font></span><span lang="EN-US"><o:p>
+</o:p>
+</span></b></p>
+<ul type="circle" dynamicoutline initcollapsed>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5" color="#0000FF">软件体系结构描述的方法分</font></span>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">为一般描述方法（或非形式的方法）</font></span></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">形式化描述方法。</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5" color="#0000FF">常用的一般描述方法</font></span>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">主程序和子过程</font></span></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">数据抽象和面向对象设计</font></span></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">层次结构</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font color="#0000FF" size="5">常用的形式化描述方法</font></span>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span lang="EN-US">Category  
+        Theory(</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">类属理论</span><span lang="EN-US">)</span></font></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span lang="EN-US">Z 
+        Notation(Z</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">标记语言</span><span lang="EN-US">)</span><span style="font-family:
+宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">。</span></font></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><b><span style="font-family:
+宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5" color="#0000FF">1.主程序和子过程</font></span></b>
+    <ul type="circle">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font color="#0000FF" size="5">在结构化范型中，将系统结构映射为主程序和一系列具有调用关系的子过程（或子函数）的集合。主程序充当子过程的调用者，子过程之间又存在着复杂的过程调用关系。过程之间通过参数传入和传出数据。这是软件设计最直接、最基本的结构关系。更复杂的系统设计包含了模块、包、库、程序覆盖等概念。</font></span>
+        <ul type="disc">
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">库提供了系统设计支持的公用的二进制代码，它是设计和调试好的子过程的集合。</font></span></li>
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">包通常是是针对特定应用的类别所提供的公用子过程集合，它可以是源代码或二进制代码形式的。为了支持上运行时组装，通常需要为包提供初始化操作，以维持包的初始状态。</font></span></li>
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">模块具有与包类似的结构，但支持上层功能的转换操作，可以看成是具有独立主程序和子过程结构的功能块。</font></span></li>
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">程序覆盖是在有限的存储空间条件下，支持功能模块和包对换的机制。</font></span></li>
+        </ul>
+      </li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5" color="#0000FF">优点</font></span>
+        <ul type="disc">
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">是一切软件结构的最本质、最基础的形式，一切软件的结构问题都可以通过在此层次上的代码得追溯；</font></span></li>
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">只要设计得当，代码的效率可以得到最大限度的发挥和提高。</font></span></li>
+        </ul>
+      </li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5" color="#0000FF">缺点</font></span>
+        <ul type="disc">
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">部件的连接关系不明显。直观的部件关系只是过程的调用，但实际支持的连接可以复杂，为把握部件之间的连接关系造成困难。</font></span></li>
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">代码的维护性差。简单的过程调用关系为代码的维护带来困难，特别是数据据结构的变化会引起复杂的关联变化。</font></span></li>
+          <li>
+            <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">代码的重用性差。单纯的过程概念不能反应复杂的软件结构关系，难以成为软件重用的基本单元，不能构成大规模的重用基础。</font></span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font color="#0000FF" size="5"><span lang="EN-US">2</span><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">．数据抽象和面向对象设计</span></font>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">数据抽象和面向对象设计是在主程序和子过程设计方法的基础上建立和发展起来的重要的软件描述方法。数据抽象是面向对象设计的理论基础，类和对象是该描述方法的基础粒度。　</font></span></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">类是数据抽象的载体，由数据成员和操作方法构成，成员的类型和取值范围定义了数据运算的域，方法定义了对数据的运算及其遵循的公理，这样，数据以及对它们的操作就被安然完整地封装在一起而形成了抽象数据类型。</font></span></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">对象是类的实例，是软件系统的可运行实体，它全面复制了类的数据组成和操作方法，对象的数据反映了对象的生存状态。对象之间是通过操作方法的调用建立相互作用关系，方法调用采用</span><span lang="EN-US">&lt;</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">对象名</span><span lang="EN-US">&gt;.&lt;</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">方法名</span><span lang="EN-US">&gt;(&lt;</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">参数</span><span lang="EN-US">&gt;)</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">的形式。这就是对象的信息隐藏性和封装性，它保证了行为正确的对象在外界环境不出现意外时永远是正确的。</span></font></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">类的继承性是一种重用机制。通过继承类的数据和操作，并加以扩充，可以快速建立（或导出）起新的类。另外，封装性保证了类或对象作为独立体的完整性。</font></span></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">多态性是同一行为名，作用在不同类的对象上时，对应的性质相同但操作细节不同的特性，保证了系统中部件要可替换兼容性。</font></span></li>
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">动态链接是在可环境中实现多态性的机制，也是运行代码重用的机制，为运行代码的扩充、升级提供了可能。</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" style="text-indent:21.0pt"><font color="#0000FF" size="5"><span lang="EN-US">3</span><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">．</span><span lang="EN-US">Category  
+    Theory(</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">类属理论</span><span lang="EN-US">)</span></font>
+    <ul type="circle">
+      <li>
+        <p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">类属理论是一种表达对象关系的数学语言，最初的研究是</span><span lang="EN-US">Samuel  
+        Eilenberg </span><span style="font-family:宋体;mso-ascii-font-family: 
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">和　</span><span lang="EN-US">Sanders  
+        Maclane</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">提出的。广泛用于描述软件体系结构中的部件和连接器。</span></li>
+    </ul>
+  </li>
+</ul>
+<p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family: 宋体; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman"><a href="#L10－2－1">返　回</a></span></font></p>
+<hr>
+<p class="MsoNormal"><b><font size="5" color="#0000FF"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><a name="L10-3-1"></a>三、</span><span lang="EN-US">Z  
+Notation</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">简介</span></font></b></p>
+<ul type="circle" dynamicoutline initcollapsed>
+  <li>
+    <p class="MsoNormal"><b><span lang="EN-US"><o:p>
+    </o:p>
+    </span></b><font size="5"><span lang="EN-US">Z Notation</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family: 
+&quot;Times New Roman&quot;">是由牛津大学（</span><span lang="EN-US">University  
+    of Oxford </span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family: 
+&quot;Times New Roman&quot;">）的</span><span lang="EN-US">Programming</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">　</span><span lang="EN-US">Research Group</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family: 
+&quot;Times New Roman&quot;">研究的一种数学语言，基于一阶谓词逻辑（</span><span lang="EN-US">firs-order  
+    logic</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">）和集合论（</span><span lang="EN-US">set  
+    theory</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">）。使用标准的逻辑操作符（∧、∨、→等）和集合操作符（∩、∪、∈等）以及它们的标准常规定义。</span></font></li>
+  <li>
+    <p class="MsoNormal"><font size="5"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">使用</span><span lang="EN-US">Z  
+    Notation</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">可以描述数学对象的模型，这些对象与程序计算对象相似，这是</span><span lang="EN-US">Z</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">可作为体系结构和软件工程描述的原因。</span></font></li>
+  <li>
+    <p class="MsoNormal" align="left" style="text-align:left;mso-layout-grid-align:
+none;text-autospace:none"><b><span lang="EN-US"><font color="#0000FF" size="5">1</font></span><font color="#0000FF" size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">．什么是形式规范（</span><span lang="EN-US">formal  
+    specifications</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">）</span></font></b>
+    <ul type="disc" dynamicoutline>
+      <li>
+        <p class="MsoNormal" align="left" style="text-align:left;mso-layout-grid-align:
+none;text-autospace:none"><font size="5"><b><font color="#0000FF"><span lang="EN-US"><o:p>
+        </o:p>
+        </span></font></b><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">形式规范（</span><span lang="EN-US">formal  
+        specifications</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">）是用数学表示法（</span><span lang="EN-US">notation</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">）精确地描述信息系统的属性，而不过分注重实现这些属性的方法，也就是说，这些规范描述系统应该做什么而不关心系统如何实现。这种抽象使用得形式规范对开发计算机系统的过程很有意义，因为它们使得系统的问题能够可信赖地回答，没有必要解决大量的程序代码细节。</span></font></li>
+      <li>
+        <p class="MsoNormal" align="left" style="text-align:left;mso-layout-grid-align:
+none;text-autospace:none"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">形式规范为客户需求分析、程序实现、系统测试或编写系统用户手册等人员提供一个单一、可靠的资料，因为一个系统的形式规范独立于程序代码，可以在系统开发之前完成。虽然在这些规范在系统设计阶段或客户需求变化时需要改变，但它们是促进对系统达成共识的一个有效方法。</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal" align="left" style="text-align:left;mso-layout-grid-align:
+none;text-autospace:none"><b><font color="#0000FF" size="5"><span lang="EN-US">2</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">．</span><span lang="EN-US"><a href="../备份/N notation.doc">Z notation</a></span><a href="../备份/N notation.doc"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family: 
+&quot;Times New Roman&quot;">的思想</span></a></font></b>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal"><span lang="EN-US">Z notation</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family: 
+&quot;Times New Roman&quot;">的思想是把描述一个系统的规范分解成若干图表（</span><span lang="EN-US">schema</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">，也称架构或模式）</span><span lang="EN-US">,  
+        </span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">图表（</span><span lang="EN-US">schema</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">）可以再分解更小的图表。在</span><span lang="EN-US">Z</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">中，图表（</span><span lang="EN-US">schema</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">）用于描述系统的静态和动态方面：</span>
+        <ul type="disc">
+          <li>
+            <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">静态方面（</span><span lang="EN-US">static  
+            aspects</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">）包括：</span>
+            <ul dynamicoutline>
+              <li>
+                <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:
+CMR10~1a;mso-hansi-font-family:CMR10~1a;mso-font-kerning:0pt">系统的状态；</span></li>
+              <li>
+                <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:
+CMR10~1a;mso-hansi-font-family:CMR10~1a;mso-font-kerning:0pt">维持系统从一个状态向另一个状态转换的不变关系（</span><span lang="EN-US" style="font-family:CMR10~1a;mso-font-kerning:0pt">invariant  
+                relationships</span><span style="font-family:宋体;mso-ascii-font-family:CMR10~1a;
+mso-hansi-font-family:CMR10~1a;mso-font-kerning:0pt">）；</span></li>
+            </ul>
+          </li>
+          <li>
+            <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">动态方面（</span><span lang="EN-US">dynamic  
+            aspects</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">）包括：</span>
+            <ul>
+              <li>
+                <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:
+CMR10~1a;mso-hansi-font-family:CMR10~1a;mso-font-kerning:0pt">系统的可能操作；</span></li>
+              <li>
+                <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:
+CMR10~1a;mso-hansi-font-family:CMR10~1a;mso-font-kerning:0pt">输入与输出关系；</span></li>
+              <li>
+                <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:
+CMR10~1a;mso-hansi-font-family:CMR10~1a;mso-font-kerning:0pt">状态的变化的产生。</span></li>
+            </ul>
+          </li>
+          <li>
+            <p class="MsoNormal"><span lang="EN-US"><img src="sa_lec1.gif" v:shapes="_x0000_i1038" width="452" height="192"></span></li>
+          <li>
+            <p class="MsoNormal"><span lang="EN-US"><img src="sa_lec2.gif" v:shapes="_x0000_i1039" width="504" height="177"></span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal"><font color="#0000FF" size="5"><span lang="EN-US">3</span><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">．</span><span lang="EN-US">Declarations</span></font>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal"><font size="5" color="#0000FF"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">声明满足属性的各种变量或变量的取值，在</span><span lang="EN-US">Z</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">中有两种基本的声明方法。</span></font>
+        <ul>
+          <li>
+            <p class="MsoNormal"><span lang="EN-US"><font size="5">Basic-Decl  
+            ::= Ident; : : : ; Ident : Expression</font></span></li> 
+          <li>
+            <p class="MsoNormal"><span lang="EN-US"><font size="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+            </font></span><font size="5"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">｜</span><span lang="EN-US">Schema-Ref&nbsp;&nbsp; 
+            </span></font></li>
+          <li>
+            <p class="MsoNormal"><font size="5" color="#0000FF"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">方法</span><span lang="EN-US">1</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">：</span></font>
+            <ul>
+              <li>
+                <p class="MsoNormal"><font size="5"><span lang="EN-US">X1</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">，</span><span lang="EN-US">X2</span><span style="font-family:
+宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">，</span><span lang="EN-US">…</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">，</span><span lang="EN-US">Xn  
+                : E</span></font></li> 
+              <li>
+                <p class="MsoNormal"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">声明的变量是某集合的一组元素，显式地列出。</font></span></li>
+            </ul>
+          </li>
+          <li>
+            <p class="MsoNormal"><font size="5" color="#0000FF"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">方法</span><span lang="EN-US">2</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">：</span></font>
+            <ul>
+              <li>
+                <p class="MsoNormal"><font size="5"><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">声明的变量是</span><span lang="EN-US">schema</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">的引用（</span><span lang="EN-US">reference</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">），以</span><span lang="EN-US">schema</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">作为组件。</span></font></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">声明变量时，还可以指定是输入或输出，在变量后加上“？”表示该变量从用户输入；在变量后加上“！”表示输出。</font></span></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">声明的变量的适用范围由它出现的上下文</span><span lang="EN-US">(context)</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">决定，可以是适合整个规范的全局变量，作为</span><span lang="EN-US">schema</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">的组件，也可以是适合于某个谓词或表达式的局部变量。</span></font></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal"><b><span lang="EN-US"><font size="5" color="#0000FF">4.  
+    Schema texts</font></span></b> 
+    <ul type="disc" dynamicoutline>
+      <li>
+        <p class="MsoNormal"><font size="5"><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">一个</span><span lang="EN-US">schema</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">文本是由声明和或选择的谓词列表。</span></font></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><span lang="EN-US" style="font-family: CMSS10; mso-font-kerning: 0pt">Schema-Text  
+        </span><span lang="EN-US" style="font-family: CMR10~1a; mso-font-kerning: 0pt">::= 
+        </span><span lang="EN-US" style="font-family: CMSS10; mso-font-kerning: 0pt">Declaration 
+        </span><span lang="EN-US" style="font-family: CMTI10; mso-font-kerning: 0pt">[</span><span lang="EN-US" style="font-family: CMSS10; mso-font-kerning: 0pt">Predicate</span><span lang="EN-US" style="font-family: CMR10~1a; mso-font-kerning: 0pt">; 
+        </span><span lang="EN-US" style="font-family: CMMI10; mso-font-kerning: 0pt">: 
+        : : </span><span lang="EN-US" style="font-family: CMR10~1a; mso-font-kerning: 0pt">; 
+        </span><span lang="EN-US" style="font-family: CMSS10; mso-font-kerning: 0pt">Predicate</span><span lang="EN-US" style="font-family: CMTI10; mso-font-kerning: 0pt">]</span></font></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal"><b><span lang="EN-US"><font size="5" color="#0000FF">5. 
+    Predicates</font></span></b>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><img src="sa_lec3.gif" v:shapes="_x0000_i1025" width="474" height="307"></span></li>
+      <li>
+        <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; mso-border-alt: solid windowtext .5pt; mso-padding-alt: 0pt 5.4pt 0pt 5.4pt; border-style: none; border-width: medium" width="699">
+          <tr style="height:30.7pt">
+            <td width="115" valign="top" style="height: 30.7pt; border: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><b><span lang="EN-US" style="font-size:18.0pt;mso-bidi-font-size:
+  12.0pt">P</span><i><span lang="EN-US" style="font-size:14.0pt;
+  mso-bidi-font-size:12.0pt">X</span></i><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><o:p>
+              </o:p>
+              </span></b></p>
+            </td>
+            <td width="553" valign="top" style="mso-border-left-alt: solid windowtext .5pt; height: 30.7pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top: .5pt solid windowtext; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+  mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">关于</font></span><font size="5"><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">的幂集，即所有以类型</span><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">的元素为子集合</span></font></p>
+            </td>
+          </tr>
+          <tr style="height:30.7pt">
+            <td width="115" valign="top" style="mso-border-top-alt: solid windowtext .5pt; height: 30.7pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1026"
+   type="#_x0000_t75" style='width:60pt;height:18.75pt' o:ole="">
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image004.png"
+    o:title=""/>
+  </v:shape><![endif]-->
+              <span lang="EN-US" style="font-size:10.5pt;mso-bidi-font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;;mso-fareast-font-family:宋体;mso-font-kerning:
+1.0pt;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:
+AR-SA"><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:60pt;
+ height:18.75pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]-->
+              <img src="sa_lec13.jpg" v:shapes="_x0000_i1025" width="80" height="25"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1177682727">
+ </o:OLEObject>
+</xml><![endif]-->
+              </span><!--[if gte mso 9]><xml>
+   <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1026"
+    DrawAspect="Content" ObjectID="_1177521606">
+   </o:OLEObject>
+  </xml><![endif]-->
+              </span></p>
+            </td>
+            <td width="553" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; height: 30.7pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><font size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+  mso-hansi-font-family:&quot;Times New Roman&quot;">定义域类型</span><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">和值域类型</span><span lang="EN-US">Y</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">之间的所有关系的集合</span></font></p>
+            </td>
+          </tr>
+          <tr>
+            <td width="115" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1027"
+   type="#_x0000_t75" style='width:62.25pt;height:18pt' o:ole="">
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image006.png"
+    o:title=""/>
+  </v:shape><![endif]-->
+              <span lang="EN-US" style="font-size:10.5pt;mso-bidi-font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;;mso-fareast-font-family:宋体;mso-font-kerning:
+1.0pt;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:
+AR-SA"><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:62.25pt;
+ height:18pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]-->
+              <img src="sa_lec14.jpg" v:shapes="_x0000_i1025" width="83" height="24"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1177682741">
+ </o:OLEObject>
+</xml><![endif]-->
+              </span><!--[if gte mso 9]><xml>
+   <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1027"
+    DrawAspect="Content" ObjectID="_1177521607">
+   </o:OLEObject>
+  </xml><![endif]-->
+              <b><o:p> 
+              </o:p>
+              </b></span></p>
+            </td>
+            <td width="553" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><font size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+  mso-hansi-font-family:&quot;Times New Roman&quot;">从类型</span><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">到类型</span><span lang="EN-US">Y</span><span style="font-family:
+  宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">的所有偏函数的集合，一个偏函数是不必在定义域类型的所有元素定义的函数。</span></font></p>
+            </td>
+          </tr>
+          <tr>
+            <td width="115" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1028"
+   type="#_x0000_t75" style='width:59.25pt;height:17.25pt' o:ole="">
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image008.png"
+    o:title=""/>
+  </v:shape><![endif]-->
+              <span lang="EN-US" style="font-size:10.5pt;mso-bidi-font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;;mso-fareast-font-family:宋体;mso-font-kerning:
+1.0pt;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:
+AR-SA"><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:59.25pt;
+ height:17.25pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]-->
+              <img src="sa_lec14.jpg" v:shapes="_x0000_i1025" width="79" height="23"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1177682752">
+ </o:OLEObject>
+</xml><![endif]-->
+              </span><!--[if gte mso 9]><xml>
+   <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1028"
+    DrawAspect="Content" ObjectID="_1177521608">
+   </o:OLEObject>
+  </xml><![endif]-->
+              </span></p>
+            </td>
+            <td width="553" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><font size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+  mso-hansi-font-family:&quot;Times New Roman&quot;">从类型</span><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">到类型</span><span lang="EN-US">Y</span><span style="font-family:
+  宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">的所全函数的集合，一个全函数是在定义域类型的所有元素定义的函数。</span></font></p>
+            </td>
+          </tr>
+          <tr>
+            <td width="115" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1029"
+   type="#_x0000_t75" style='width:62.25pt;height:18.75pt' o:ole="">
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image010.png"
+    o:title=""/>
+  </v:shape><![endif]-->
+              <span lang="EN-US" style="font-size:10.5pt;mso-bidi-font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;;mso-fareast-font-family:宋体;mso-font-kerning:
+1.0pt;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:
+AR-SA"><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:62.25pt;
+ height:18.75pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]-->
+              <img src="sa_lec14.jpg" v:shapes="_x0000_i1025" width="83" height="25"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1177682762">
+ </o:OLEObject>
+</xml><![endif]-->
+              </span><!--[if gte mso 9]><xml>
+   <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1029"
+    DrawAspect="Content" ObjectID="_1177521609">
+   </o:OLEObject>
+  </xml><![endif]-->
+              </span></p>
+            </td>
+            <td width="553" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><font size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+  mso-hansi-font-family:&quot;Times New Roman&quot;">从类型</span><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">到类型</span><span lang="EN-US">Y</span><span style="font-family:
+  宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">的所有偏函数、并且其反函数是一个从</span><span lang="EN-US">Y</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+  mso-hansi-font-family:&quot;Times New Roman&quot;">到</span><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">的偏函数的集合。也称入函数</span><span lang="EN-US">(injective).</span></font></p>
+            </td>
+          </tr>
+          <tr>
+            <td width="115" valign="top" style="mso-border-top-alt: solid windowtext .5pt; border-left: .5pt solid windowtext; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1030"
+   type="#_x0000_t75" style='width:64.5pt;height:18.75pt' o:ole="">
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image012.png"
+    o:title=""/>
+  </v:shape><![endif]-->
+              <span lang="EN-US" style="font-size:10.5pt;mso-bidi-font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;;mso-fareast-font-family:宋体;mso-font-kerning:
+1.0pt;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:
+AR-SA"><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:64.5pt;
+ height:18.75pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]-->
+              <img src="sa_lec14.jpg" v:shapes="_x0000_i1025" width="86" height="25"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1177682772">
+ </o:OLEObject>
+</xml><![endif]-->
+              </span><!--[if gte mso 9]><xml>
+   <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1030"
+    DrawAspect="Content" ObjectID="_1177521610">
+   </o:OLEObject>
+  </xml><![endif]-->
+              </span></p>
+            </td>
+            <td width="553" valign="top" style="mso-border-top-alt: solid windowtext .5pt; mso-border-left-alt: solid windowtext .5pt; border-left-style: none; border-left-width: medium; border-right: .5pt solid windowtext; border-top-style: none; border-top-width: medium; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0pt; padding-bottom: 0pt">
+              <p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+  mso-hansi-font-family:&quot;Times New Roman&quot;"><font size="5">从类型</font></span><font size="5"><span lang="EN-US">X</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+  &quot;Times New Roman&quot;">到类型</span><span lang="EN-US">Y</span><span style="font-family:
+  宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">的双射函数的集合。双射函数是一一对应的关系。</span></font></p>
+            </td>
+          </tr>
+        </table>
+        <p class="MsoNormal">　</li>
+      <li>
+        <p class="MsoNormal"><font size="5"><b><span style="mso-text-raise: -2.0pt; mso-bidi-font-size: 10.0pt; font-family: CMSY10; mso-font-kerning: 0pt" lang="EN-US"><img src="sa_lec9.gif" alt="*" v:shapes="_x0000_i1031" width="14" height="17"></span></b><b><span style="mso-tab-count: 1; mso-bidi-font-size: 10.0pt; font-family: CMSY10; mso-font-kerning: 0pt" lang="EN-US"> 
+        </span></b><i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;font-family:CMSY10;mso-font-kerning:
+0pt">decl</span></i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;
+font-family:CMSY10;mso-font-kerning:0pt">|<i>pred1</i>*<i>pred2</i></span><span style="mso-bidi-font-size:10.0pt;font-family:宋体;mso-ascii-font-family:CMSY10;
+mso-hansi-font-family:CMSY10;mso-font-kerning:0pt">：它被读作“对在</span><i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;font-family:CMSY10;mso-font-kerning:
+0pt">decl</span></i><span style="mso-bidi-font-size:10.0pt;font-family:宋体;
+mso-ascii-font-family:CMSY10;mso-hansi-font-family:CMSY10;mso-font-kerning:
+0pt">中满足谓词</span><i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;
+font-family:CMSY10;mso-font-kerning:0pt">pred1</span></i><span style="mso-bidi-font-size:10.0pt;font-family:宋体;mso-ascii-font-family:CMSY10;
+mso-hansi-font-family:CMSY10;mso-font-kerning:0pt">的所有变量，都使用谓词</span><i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;font-family:CMSY10;mso-font-kerning:
+0pt">pred2</span></i><span style="mso-bidi-font-size:10.0pt;font-family:宋体;
+mso-ascii-font-family:CMSY10;mso-hansi-font-family:CMSY10;mso-font-kerning:
+0pt">为真”；</span></font></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><b><span lang="EN-US"><span style="mso-text-raise:-2.0pt"><img src="sa_lec10.gif" v:shapes="_x0000_i1032" width="13" height="16"></span><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1032"
+  DrawAspect="Content" ObjectID="_1177521612">
+ </o:OLEObject>
+</xml><![endif]-->
+        </span></b><i><span lang="EN-US" style="mso-bidi-font-size:
+10.0pt;font-family:CMSY10;mso-font-kerning:0pt"><span style="mso-spacerun:
+yes">&nbsp;</span>decl</span></i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;
+font-family:CMSY10;mso-font-kerning:0pt">|<i>pred1</i>*<i>pred2</i></span><span style="mso-bidi-font-size:10.0pt;font-family:宋体;mso-ascii-font-family:CMSY10;
+mso-hansi-font-family:CMSY10;mso-font-kerning:0pt">：它被读作“存在</span><i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;font-family:CMSY10;mso-font-kerning:
+0pt">decl</span></i><span style="mso-bidi-font-size:10.0pt;font-family:宋体;
+mso-ascii-font-family:CMSY10;mso-hansi-font-family:CMSY10;mso-font-kerning:
+0pt">中满足谓词</span><i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;
+font-family:CMSY10;mso-font-kerning:0pt">pred1</span></i><span style="mso-bidi-font-size:10.0pt;font-family:宋体;mso-ascii-font-family:CMSY10;
+mso-hansi-font-family:CMSY10;mso-font-kerning:0pt">的一个或多个变量，使用谓词</span><i><span lang="EN-US" style="mso-bidi-font-size:10.0pt;font-family:CMSY10;mso-font-kerning:
+0pt">pred2</span></i><span style="mso-bidi-font-size:10.0pt;font-family:宋体;
+mso-ascii-font-family:CMSY10;mso-hansi-font-family:CMSY10;mso-font-kerning:
+0pt">为真”；</span></font></li>
+    </ul>
+  </li>
+</ul>
+<p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family: 宋体; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman"><a href="#L10-3-0">返　回</a></span></font></p>
+<hr>
+<p class="MsoNormal"><b><font color="#0000FF" size="5"><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;"><a name="L10-4-1"></a>四、</span><span lang="EN-US">Z</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">－</span><span lang="EN-US">Notation</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">的应用例子</span><span lang="EN-US">- The 
+birthday book</span></font></b></p>
+<ul type="circle" dynamicoutline initcollapsed>
+  <li>
+    <p class="MsoNormal"><span lang="EN-US"><font size="5">In our account of the 
+    system, we shall need to deal with people's names and with dates. For 
+    present purposes, it will not matter what form these names and dates take, 
+    so we introduce the set of all names and the set of all dates as basic types 
+    of the specification:</font></span></li>
+  <li>
+    <p class="MsoNormal"><span lang="EN-US"><font size="5">[NAME;DATE]</font></span></li>
+  <li>
+    <p class="MsoNormal"><span lang="EN-US"><font size="5" color="#0000FF">1. 
+    state space schema</font></span>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><img src="sa_lec12.jpg" v:shapes="_x0000_i1033" width="366" height="160"></span></li>
+      <li>
+        <p class="MsoNormal"><font size="5" color="#0000FF"><span lang="EN-US">Like 
+        most schemas, this consists of a part above the central dividing line, 
+        in which</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">　</span><span lang="EN-US">ome variables are 
+        declared, and a part below the line which gives a relationship</span><span style="font-family:
+宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">　</span><span lang="EN-US">between 
+        the values of the variables. In this case we are describing the state 
+        space</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">　</span><span lang="EN-US">of 
+        a system, and the two variables represent important observations which 
+        we</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">　</span><span lang="EN-US">can make of the state:</span></font>
+        <ul type="disc">
+          <li>
+            <p class="MsoNormal"><span lang="EN-US"><font size="5"><i>known</i> 
+            is the set of names with birthdays recorded;</font></span></li>
+          <li>
+            <p class="MsoNormal"><span lang="EN-US" style="font-family:
+Wingdings"></span><span lang="EN-US"><font size="5"><i>birthday </i>is a 
+            function which, when applied to certain names, gives the birthdays 
+            associated with them.</font></span></li>
+        </ul>
+      </li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">The part of the 
+        schema below the line gives a relationship which is true in every state 
+        of the system and is maintained by every operation on it: in this case, 
+        it says that the set known is the same as the domain of the function 
+        birthday - the set of names to which it can be validly applied. This 
+        relationship is an invariant of the system.</font></span></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">Notice that in 
+        this description of the state space of the system, we have not been 
+        forced to place a limit on the number of birthdays recorded in the 
+        birthday book, nor to say that the entries will be stored in a 
+        particular order. We have also avoided making a premature decision about 
+        the format of names and dates. On the other hand, we have concisely 
+        captured the information that each person can have only one birthday, 
+        because the variable birthday is a function, and that two people can 
+        share the same birthday as in our example. So much for the state space; 
+        we can now start on some operations on the system. The fist of these is 
+        to add a new birthday, and we describe it with a schema:</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal"><span lang="EN-US"><font size="5">operations</font></span>
+    <ul type="disc">
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><img src="sa_lec12.gif" v:shapes="_x0000_i1034" width="415" height="196"></span></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><span lang="EN-US">The declaration 
+        ΔBirthdayBook alerts us to the fact that the schema is describ</span><span style="font-family:
+宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">　</span><span lang="EN-US">ing 
+        a state change: it introduces four variables known, birthday, known0 and</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">　</span><span lang="EN-US">birthday0. 
+        The &macr;rst two are observations of the state before the change, and 
+        thelast two are observations of the state after the change. Each pair of 
+        variables is</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">　</span><span lang="EN-US">implicitly constrained 
+        to satisfy the invariant, so it must hold both before and after the 
+        operation. Next come the declarations of the two inputs to the 
+        operation.By convention, the names of inputs end in a question mark.</span></font></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><span lang="EN-US">The part of the 
+        schema below the line &macr;rst of all gives a pre-condition for</span><span style="font-family:宋体;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">　</span><span lang="EN-US">the 
+        success of the operation: the name to be added must not already be one 
+        of</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;
+mso-hansi-font-family:&quot;Times New Roman&quot;">　</span><span lang="EN-US">those 
+        known to the system. This is reasonable, since each person can only have</span><span style="font-family:宋体;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:
+&quot;Times New Roman&quot;">　</span><span lang="EN-US">one birthday. This 
+        specification does not say what happens if the pre-condition is not 
+        satisfied: we shall see later how to extend the specification to say 
+        that an error message is to be produced. If the pre-condition is 
+        satisfied, however, the second line says that the birthday function is 
+        extended to map the new name to the given date.</span></font></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">We expect that 
+        the set of names known to the system will be augmented with the new 
+        name:</font></span></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><i><span lang="EN-US">Known</span></i><span lang="EN-US">’ 
+        =<i> known</i> </span><span style="font-family:宋体">∪<span lang="EN-US">{</span></span><i><span lang="EN-US">name</span></i><span lang="EN-US">?}</span></font></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">In fact we can 
+        prove this from the specifi cation of AddBirthday, using the invariants 
+        on the state before and after the operation:</font></span></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5"><img width="553" height="260" src="sa_lec13.gif" v:shapes="_x0000_i1035"></font></span></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">Another operation 
+        might be to find the birthday of a person known to the system. Again we 
+        describe the operation with a schema:</font></span></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><img src="sa_lec14.gif" v:shapes="_x0000_i1036" width="315" height="201"></span></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><span lang="EN-US">This schema 
+        illustrates two new notations. The declaration </span><span style="font-family:宋体">Ξ</span><span lang="EN-US">BirthdayBook 
+        indicates that this is an operation in which the state does not change: 
+        the values</span><span style="font-family:宋体;mso-ascii-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;">　</span><i><span lang="EN-US">known</span></i><span lang="EN-US">’and 
+        <i>birthday</i>’ of the observations after the operation are equal to 
+        their values known and birthday beforehand. Including </span><span style="font-family:宋体">Ξ</span><span lang="EN-US">BirthdayBook 
+        above the line has the same efect as including ΔBirthdayBook above the 
+        line and the two equations</span></font></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5"><i>known’</i> = 
+        <i>known<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>birthday</i>’ 
+        = <i>birthday</i></font></span></li>
+      <li>
+        <p class="MsoNormal"><font size="5"><span lang="EN-US">below it. The 
+        other notation is the use of a name ending in an exclamation mark for an 
+        output: the FindBirthday operation takes a name as input and yields the 
+        corresponding birthday as output. The pre-condition for success of the 
+        operation</span><span lang="EN-US" style="font-family: CMR10~1a; mso-font-kerning: 0pt"> 
+        is that </span><span lang="EN-US" style="font-family: CMTI10; mso-font-kerning: 0pt">name</span><span lang="EN-US" style="font-family: CMR10~1a; mso-font-kerning: 0pt"> 
+        is one of the names known to the system; if this is so, the output </span><i><span lang="EN-US" style="font-family: CMTI10; mso-font-kerning: 0pt">date</span></i><span lang="EN-US" style="font-family: CMR10~1a; mso-font-kerning: 0pt">! 
+        is the value of the birthday function at argument </span><i><span lang="EN-US" style="font-family: CMTI10; mso-font-kerning: 0pt">name</span></i><span lang="EN-US" style="font-family: CMR10~1a; mso-font-kerning: 0pt">?.</span></font></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">The most useful 
+        operation on the system is the one to find which people have birthdays 
+        on a given date. The operation has one input <i>today</i>?, and one 
+        output, <i>cards</i>!, which is a set of names: there may be zero, one, 
+        or more people with birthdays on a particular day, to whom birthday 
+        cards should be sent.</font></span></li>
+      <li>
+        <p class="MsoNormal"><img src="sa_lec15.gif" v:shapes="_x0000_s1026" width="449" height="182"></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">To finish the 
+        specification, we must say what state the system is in when it is first 
+        started. This is the initial state of the system, and it also is 
+        specified by a schema:</font></span></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><img src="sa_lec16.gif" v:shapes="_x0000_i1037" width="265" height="137"></span></li>
+      <li>
+        <p class="MsoNormal"><span lang="EN-US"><font size="5">This schema 
+        describes a birthday book in which the set known is empty: in 
+        consequence, the function birthday is empty too.</font></span></li>
+    </ul>
+  </li>
+  <li>
+    <p class="MsoNormal"><span lang="EN-US"><font size="5">What have we achieved 
+    in this specification? We have described in the same mathematical framework 
+    both the state space of our birthday-book system and the operations which 
+    can be performed on it. The data objects which appear in the system were 
+    described in terms of mathematical data types such as sets and functions. 
+    The description of the state space included an invariant relationship 
+    between the parts of the state-information which would not be part of a 
+    program implementing the system, but which is vital to understanding it.</font></span></li>
+  <li>
+    <p class="MsoNormal"><span lang="EN-US"><font size="5">The effects of the 
+    operations are described in terms of the relationship which must hold 
+    between the input and the output, rather than by giving a recipe to be 
+    followed. This is particularly striking in the case of the <i>Remind</i> 
+    operation, where we simply documented the conditions under which a name 
+    should appear in the output. An implementation would probably have to 
+    examine the known names one at a time, printing the ones with today's date 
+    as it found them, but this complexity has been avoided in the specification. 
+    The implement or is free to use this technique, or any other one, as he or 
+    she chooses.</font></span></li>
+  <li></li>
+</ul>
+<p class="MsoNormal" style="text-indent:21.0pt"><font size="5"><span style="font-family: 宋体; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman"><a href="#L10-4-0">返　回</a></span></font></p>
+<hr>
+<p class="MsoNormal" style="text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-char-indent-size:10.5pt">　</p>
+<p class="MsoNormal" style="text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-char-indent-size:10.5pt">　</p>
+<p class="MsoNormal">　</p>
+<p class="MsoNormal">　</p>
+<p class="MsoNormal" style="text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-char-indent-size:10.5pt">　</p>
+<p class="MsoNormal" style="text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-char-indent-size:10.5pt">　</p>
+
+</body>
+
+</html>
+
+

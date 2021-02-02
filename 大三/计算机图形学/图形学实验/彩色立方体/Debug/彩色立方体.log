@@ -1,0 +1,15 @@
+﻿生成启动时间为 2013/10/7 18:05:32。
+     1>项目“F:\学习\大三\计算机图形学\图形学实验\彩色立方体\彩色立方体.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“Debug\彩色立方体.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         所有输出均为最新。
+       Link:
+         D:\Visual Studio 2010 旗舰版\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\学习\大三\计算机图形学\图形学实验\Debug\彩色立方体.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glew32.lib freeglut.lib GLUT32.LIB opengl.lib GLAUX.LIB kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\彩色立方体.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\学习\大三\计算机图形学\图形学实验\Debug\彩色立方体.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\学习\大三\计算机图形学\图形学实验\Debug\彩色立方体.lib" /MACHINE:X86 "Debug\彩色立方体.obj"
+     1>彩色立方体.obj : error LNK2019: 无法解析的外部符号 "unsigned int __cdecl Angel::InitShader(char const *,char const *)" (?InitShader@Angel@@YAIPBD0@Z)，该符号在函数 "void __cdecl init(void)" (?init@@YAXXZ) 中被引用
+     1>F:\学习\大三\计算机图形学\图形学实验\Debug\彩色立方体.exe : fatal error LNK1120: 1 个无法解析的外部命令
+     1>已完成生成项目“F:\学习\大三\计算机图形学\图形学实验\彩色立方体\彩色立方体.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.18

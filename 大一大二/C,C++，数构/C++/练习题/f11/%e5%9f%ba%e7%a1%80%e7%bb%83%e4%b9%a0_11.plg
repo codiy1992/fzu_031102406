@@ -1,0 +1,26 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: %e5%9f%ba%e7%a1%80%e7%bb%83%e4%b9%a0_11 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\admin\AppData\Local\Temp\RSP46EC.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/%e5%9f%ba%e7%a1%80%e7%bb%83%e4%b9%a0_11.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\学习\C++\练习题\f11\%e5%9f%ba%e7%a1%80%e7%bb%83%e4%b9%a0_11.cpp"
+]
+Creating command line "cl.exe @C:\Users\admin\AppData\Local\Temp\RSP46EC.tmp" 
+<h3>Output Window</h3>
+Compiling...
+%e5%9f%ba%e7%a1%80%e7%bb%83%e4%b9%a0_11.cpp
+F:\学习\C++\练习题\f11\%e5%9f%ba%e7%a1%80%e7%bb%83%e4%b9%a0_11.cpp(37) : warning C4508: 'main' : function should return a value; 'void' return type assumed
+
+
+
+<h3>Results</h3>
+%e5%9f%ba%e7%a1%80%e7%bb%83%e4%b9%a0_11.obj - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

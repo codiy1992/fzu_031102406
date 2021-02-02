@@ -1,0 +1,87 @@
+Turbo Assembler	 Version 5.0	    09-20-08 15:30:14	    Page 1
+D:\阿忠\教学科研\教学资料\现代计~1\工程学~1\实验四\1.ASM
+
+
+
+      1				     ;A口工作在方式0，输入，接4个开关，B口工作在方式0，输出，接八段显示器，;PC7接单脉冲，输入负脉冲时
+      2				     ，读一次A口，同时在B口显示，读10次结束。
+      3	0000			     DATA SEGMENT
+      4	      =0288			     PA	 EQU  288H
+      5	      =0289			     PB	 EQU  289H
+      6	      =028A			     PC	 EQU  28AH
+      7	      =028B			     CTL EQU  28BH
+      8	0000  40 79 24 30 19 12	02+	     TABLE    DB	40H,79H,24H,30H,19H,12H,02H,78H
+      9	      78
+*Warning* D:\阿忠\教学科研\教学资料\现代计~1\工程学~1\实验四\1.ASM(7) Reserved word used as symbol: TABLE
+     10	0008  00 10 08 03 46 21	06+		      DB	00H,10H,08H,03H,46H,21H,06H,0EH
+     11	      0E
+     12	0010  ??			     DAT      DB	 ?
+     13	0011			     DATA ENDS
+     14	0000			     CODE SEGMENT
+     15					     ASSUME CS:CODE,DS:DATA
+     16	0000  B8 0000s		     START:  MOV AX,DATA
+     17	0003  8E D8			     MOV DS,AX
+     18	0005  BA 028B			     MOV DX,CTL	 ;8255方式字控制   ;10011000
+     19	0008  B0 98			 MOV AL,98H
+     20	000A  EE			 OUT DX,AL
+     21	000B  B9 000A			     MOV CX,10
+     22	000E			     L0:
+     23	000E  BA 028A			     MOV DX,PC
+     24	0011  EC			     IN	 AL,DX
+     25	0012  A8 80			     TEST  AL,80H
+     26	0014  75 F8			     JNZ  L0
+     27	0016  BA 0288			     MOV  DX,PA
+     28	0019  EC			     IN	  AL,DX
+     29	001A  24 0F			     AND  AL,0FH
+     30	001C  BB 0000r			     MOV  BX,OFFSET  TABLE
+     31	001F  D7			     XLAT
+     32	0020  BA 0289			     MOV  DX,PB
+     33	0023  EE			     OUT  DX,AL
+     34	0024  BA 028A		     L1:     MOV  DX,PC
+     35	0027  EC			     IN	  AL,DX
+     36	0028  A8 80			     TEST  AL,80H
+     37	002A  75 F8			     JNZ  L1
+     38	002C  E2 E0			     LOOP  L0
+     39
+     40	002E  B4 4C			     MOV AH,4CH
+     41	0030  CD 21			     INT 21H
+     42
+     43	0032			     CODE ENDS
+     44					  END  START
+Turbo Assembler	 Version 5.0	    09-20-08 15:30:14	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "09-20-08"
+??FILENAME			  Text	 "1	  "
+??TIME				  Text	 "15:30:14"
+??VERSION			  Number 0500
+@CPU				  Text	 0101H
+@CURSEG				  Text	 CODE
+@FILENAME			  Text	 1
+@WORDSIZE			  Text	 2
+CTL				  Number 028B
+DAT				  Byte	 DATA:0010
+L0				  Near16 CODE:000E
+L1				  Near16 CODE:0024
+PA				  Number 0288
+PB				  Number 0289
+PC				  Number 028A
+START				  Near16 CODE:0000
+TABLE				  Byte	 DATA:0000
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+CODE				  16  0032 Para	  none
+DATA				  16  0011 Para	  none
+Turbo Assembler	 Version 5.0	    09-20-08 15:30:14	    Page 3
+Error Summary
+
+
+
+*Warning* D:\阿忠\教学科研\教学资料\现代计~1\工程学~1\实验四\1.ASM(7) Reserved word used as symbol: TABLE
+

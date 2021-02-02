@@ -1,0 +1,51 @@
+在Ubuntu12.04或13.04下安装GTK 2.24.10 (联网环境下会自动从网上下载安装，也可把相关deb包拷贝至/var/cache/apt/archives内避免去网上下载从而加快安装速度)
+
+1、安装gcc/g++/gdb/make 等基本编程工具
+
+sudo apt-get install build-essential
+
+2、安装 libgtk2.0-dev libglib2.0-dev 等开发相关的库文件（安装时间比较久,1小时20分左右）
+
+sudo apt-get install gnome-core-devel
+
+3、用于在编译GTK程序时自动找出头文件及库文件位置
+
+sudo apt-get install pkg-config
+
+4、安装 devhelp GTK文档查看程序
+
+sudo apt-get install devhelp
+
+5、安装 gtk/glib 的API参考手册及其它帮助文档
+
+sudo apt-get install libglib2.0-doc libgtk2.0-doc
+
+6、安装基于GTK的界面GTK是开发Gnome窗口的c/c++语言图形库
+
+sudo apt-get install glade libglade2-dev
+
+7、安装gtk2.0 或者 将gtk+2.0所需的所有文件统通下载安装完毕
+
+sudo apt-get install libgtk2.0-dev
+
+
+
+安装完成后可查看GTK库版本的命令
+
+1.查看 2.x 版本
+
+pkg-config --modversion gtk+-2.0
+
+2.查看pkg-config的版本
+
+pkg-config --version
+
+3.查看是否安装了gtk
+
+pkg-config --list-all | grep gtk
+
+
+
+如需gtk+界面设计工具glade，则需安装glade
+
+sudo apt-get install glade

@@ -1,0 +1,687 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 2</title>
+<script language="JavaScript" fptype="dynamicoutline">
+<!--
+function dynOutline() {}
+//-->
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" src="file:///C:/Program%20Files/Microsoft%20Office/OFFICE11/fpclass/outline.js">
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" for="document" event="onreadystatechange()">
+<!--
+initOutline()
+//-->
+</script>
+</head>
+
+<body onclick="dynOutline()" bgcolor="#FFCCFF" language="Javascript1.2">
+
+<p style="line-height: 150%"><font color="#FF0000"><font size="6">S</font><b><font size="6">oftware   
+Architecture&nbsp;</font></b></font></p>
+<p style="line-height: 150%">&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">&nbsp; 　　　　　－<b><font size="5">principle                
+and practice</font></b></font></p>               
+<hr>
+<p style="line-height: 150%"><font size="6"><a name="L5_1"></a></font><font color="#0000FF" size="5">第十讲　软件体系结构模式-Java Web技术结构分析 </font></p>            
+<p style="line-height: 150%"><font color="#0000FF" size="5">　　</font><font size="4">在目前的web应用中,JSP技术占主要地位。</font></p>  
+<ul dynamicoutline initcollapsed type="circle">
+      <li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">一.什么MVC</font>         
+        <ul type="disc">
+          <li>
+			<p style="line-height: 150%"><font size="5" color="#0000FF">1.MVC模式(Design Patterns)</font>         
+            <ul type="disc">
+              <li>
+				<p style="line-height: 150%"><font size="4">Model/View/Controller 原本是建立Smalltalk 应用的框架.</font></li>
+              <li>
+				<p style="line-height: 150%"><img src="sa-A-1.JPG" width="551" height="589"></li>        
+              <li>
+				<p style="line-height: 150%"></li>
+              <li>
+				<p style="line-height: 150%"><font size="4">数据系统称为模型 Model(<font color="#FF0000">M</font>)</font></li>
+              <li>
+				<p style="line-height: 150%"><font size="4">表现系统称为视图 View(<font color="#FF0000">V</font>)</font></li>
+              <li>
+				<p style="line-height: 150%"><font size="4">交互系统称为控制器Controller(<font color="#FF0000">C</font>)</font></li>
+              <li>
+				<p style="line-height: 150%"><font size="5" color="#0000FF">MVC称为通知/订阅者（notify/subscribe）协议和观察者（Observer） 模式的使用.</font><ul type="disc">
+              <li>
+				<p style="line-height: 150%">一个视图可能在同一时间显示给不同的用户,而其中一个用户可能改变视图中的数据,因此必须保证在数据或者模型改变时视图的更新,为改变模型，用户提交一个请求给控制器，由控制器配合改变模型。数据视图必须跟着改变，以反映最近的模型改变状态。</li>
+            </ul></li>
+            </ul>
+          </li>
+          <li>
+			<p style="line-height: 150%"><font size="5" color="#0000FF">2.GUI的3个主要部件-模块的耦合度 </font>
+            <ul type="disc">
+              <li>
+				<p style="line-height: 150%"><font size="4">管理数据的部件</font></li>
+				<li>
+				<p style="line-height: 150%"><font size="4">创建屏幕和报表的部件</font></li>
+				<li>
+				<p style="line-height: 150%"><font size="4">处理用户交互和子系统交互的部件</font></li>
+            </ul>
+          </li>
+          <li>
+			<p style="line-height: 150%"><font size="5" color="#0000FF">3.B/S结构</font><ul type="disc">
+          <li>
+			<p style="line-height: 150%">HTTP 是一个 “拉”模式 的协议: 客户请求然后服务器响应,没有请求就没有响应。</li>
+			<li>
+			<p style="line-height: 150%">观察者模式需要一种“推”模式的协议来进行通知，以便服务器能在模型改变时将信息推送到客户端。</li>
+			<li>
+			<p style="line-height: 150%"><font color="#FF0000">Web MVC</font></li>
+        </ul>
+          </li>
+        </ul>
+  </li>
+  <li>
+	<p style="line-height: 150%"><font color="#0000FF" size="5">二、Struts概述</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">1.Struts</font>发展<ul type="disc">
+      <li>
+		<p style="line-height: 150%">模式、框架（framework）-强调可重用：软件应用的相似点比不同点要多。</li>
+		<li>
+		<p style="line-height: 150%">Web 协议，即HTTP 和 HTML，提供了一个从表单中提交数据的机制，但却把数据的接收作为一个难题留给了开发人员。</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">通用框架策略</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">目标：Java web应用框架使用一些通用技术来帮助产品易于设计、编写和维护</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">外部配置文件</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">提供开发人员不想嵌入源代码中的实现细节</li>
+    </ul></li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">中心控制器</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">提供一种方式，将HTTP 请求排入一个易于管理的队列（前端控制器模式）</li>
+    </ul></li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">外部表现系统</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">让不同的人同时工作在同一应用的不同部分。如，Java 工程师可以工作在和中心控制器相关的类，而页面设计者则专注于JSP。</li>
+    </ul></li>
+    </ul></li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">Struts 是Apache 软件基金下Jakarta 项目子项目</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">Struts 框架的主要架构设计和开发者是Craig R. McClanahan。Craig 也是Tomcat 4 的主要架 
+		构师，以及Java Web Services Developer Pack 的主要架构师和实现者。</li>
+		<li>
+		<p style="line-height: 150%">Struts 是一个开源软件</li>
+		<li>
+		<p style="line-height: 150%">开始的代码基础从2000 年5 月开始开发，直到2001 年6 月，1.0 版本发布，目前V1.2。</li>
+    </ul>
+  	</li>
+    	<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">Struts 是一个“隐藏支柱”的集合</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">帮助开发人员将分散的材料，如数据库和页面，结合成一个整体的应用系统。</li>
+		<li>
+		<p style="line-height: 150%">Struts 的核心是一个MVC 风格的控制器。Struts 控制器搭起了Model和View之间的桥梁。</li>
+    </ul>
+      </li>
+    </ul>
+      </li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">2.Struts与MVC</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">Struts 使用Wev MVC架构</li>
+		<li>
+		<p style="line-height: 150%"><img border="0" src="sa-A-2.JPG" width="633" height="438"></li>
+		<li>
+		<p style="line-height: 150%"></li>
+		<li>
+		<p style="line-height: 150%">JSP页面,Web信息的动态表示,构成视图(View)</li>
+		<li>
+		<p style="line-height: 150%">Struts 的ActionServlet 控制导航流(Control)</li>
+    </ul>
+      </li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">3.Struts</font>简单例子<ul type="disc">
+      <li>
+		<p style="line-height: 150%">Eclipse 演示用户登录的例子.</li>
+    </ul>
+  	</li>
+    </ul>
+  </li>
+  <li>
+	<p style="line-height: 150%"><font color="#0000FF" size="5">三、Struts控制器组件</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">Struts 
+		控制器组件是一个可编程的组件集，允许开发人员定义它们的应用如何准确地和用户进行交互。这些组件在逻辑名称后面隐藏了繁琐的实现细节。开发人员可以一次性编写这些实现细节，然后转头考虑它们的应用应该做什么，而不是考虑应用应该如何交互。</li>
+		<li>
+		<p style="line-height: 150%">用户通过超链接和HTML 
+		form与Web应用程序进行交互。超链接引导页面显示数据和其他内容，如文本和图像。表单(form)通常通过一些定制动作向应用提交数据。</li>
+		<li>
+		<p style="line-height: 150%">Struts 提供了开发人员可用来定义超链接、表单和定制动作这些交互的相关组件。</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">1.超链接</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">在Struts 中，开发人员可以将超链接定义为一个ActionForward。<ul type="disc">
+      <li>
+		<p style="line-height: 150%">
+		<img border="0" src="sa-A-3.JPG" width="334" height="221"></li>
+    </ul>
+  	</li>
+		<li>
+		<p style="line-height: 150%">ActionForward 通常在一个XML文件中定义（默认配置文件为struts-config.xml），配置文件在Struts 
+		启动时载入</li>
+		<li>
+		<p style="line-height: 150%">开发人员给ActionForward 定义一个逻辑名称和一个path 属性，然后通过名称来引用ActionForward，这使得开发人员可以修改path。</li>
+		<li>
+		<p style="line-height: 150%">开发人员可以改变链接的目标而不用改变所有引用该链接的相关组件。这些细节可以通过应用配置来改变，而不用涉及到具体的页面和Java 类。</li>
+    </ul>
+        </li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">2.HTML表单</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">Web 协议，即HTTP和HTML，提供了一个从表单中提交数据到Web服务器的机制。</li>
+		<li>
+		<p style="line-height: 150%">Struts提供了ActionForm 类访问这些数据，完全不需要对HTTP 请求进行详细解析。</li>
+		<li>
+		<p style="line-height: 150%">
+		<img border="0" src="sa-A-4.JPG" width="538" height="133"></li>
+		<li>
+		<p style="line-height: 150%">ActionForm 其实是具有用来来管理校验和修订循环的标准方法的JavaBean。Struts自动匹配JavaBean 
+		属性和HTML表单控件的属性。开发者只需定义ActionForm 类，其他工作由Struts完成。</li>
+		<li>
+		<p style="line-height: 150%">ActionForm 处理来自HTML表单的输入：校验输入，重新显示表单以供用户进行修订（如果需要），以及伴随着相应的提示和错误信息。</li>
+    </ul>
+        </li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">3.定制动作</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">HTML表单使用action 参数来告诉浏览器将数据送到何处--<font color="#FF0000">通知</font>。</li>
+		<li>
+		<p style="line-height: 150%">Struts提供相应的 Action 类来接收数据。Struts自动创建、组装、校验和最后处理Action 对象所对应的 
+		ActionForm。这样，Action就可以直接通过ActionForm取得它需要的数据。</li>
+		<li>
+		<p style="line-height: 150%"></li>
+		<li>
+		<p style="line-height: 150%">Action 根据返回到控制器的ActionForward对象作出控制流的决定。这允许Action 
+		选择一个逻辑名称，比如continue 或者cancel ，而不是具体的系统路径。</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">Struts 控制器层的组件</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">ActionForward，ActionForm和Action</li>
+		<li>
+		<p style="line-height: 150%">ActionForm 负责保存应用需要收集的数据。ActionForward 
+		归类那些应用需要引用的URI, Action 对象处理操作的实际工作。</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">ActionMapping</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">描述应用中ActionForward，ActionForm和Action的关系,描述应用要采取的操作、命令。</li>
+		<li>
+		<p style="line-height: 150%">
+		<img border="0" src="sa-A-6.JPG" width="563" height="618"></li>
+    </ul>
+  		</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">ActionServlet</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">Struts 框架的核心组件是ActionServlet.</li>
+		<li>
+		<p style="line-height: 150%">Struts的ActionServlet完全在后台工作，只需配置它，然后让它自己工作。</li>
+		<li>
+		<p style="line-height: 150%">实现JSP页面和其他表现之间的流程</li>
+		<li>
+		<p style="line-height: 150%">
+		<img border="0" src="sa-A-7.JPG" width="458" height="374"></li>
+    </ul>
+  		</li>
+    </ul>
+  	</li>
+    </ul>
+        </li>
+      <li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">4.Struts组件与MVC的对应</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">
+		<img border="0" src="sa-A-8.JPG" width="706" height="328"></li>
+    </ul>
+  	</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF" size="5">Struts 
+		请求-响应流程</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">义</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF">客户请求匹配Action URI 
+		样式的路径 (1)</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">当容器启动时，读入部署描述符 (web.xml)，容器要装入所定义的servlet。</li>
+		<li>
+		<p style="line-height: 150%">请求由容器接收,容器使用设定(servlet 
+		mapping)来决定哪个请求将被送到哪个servlet.</li>
+    </ul>
+  	</li>
+		<li>
+		<p style="line-height: 150%">容器将请求传递给ActionServlet.</li>
+		<li>
+		<p style="line-height: 150%">如果这个是模块化应用，ActionServlet 选择响应的模块</li>
+		<li>
+		<p style="line-height: 150%">ActionServlet 查询路径的映射。（来自于配置文件）</li>
+		<li>
+		<p style="line-height: 150%">如果映射标明了一个form bean，ActionServlet 
+		看是否已经有一个实例，或者创建 一个新的实例 (1.1)。如果已经有一个form bean，ActionServlet 重设它，并根据 HTTP 
+		请求重新组装</li>
+		<li>
+		<p style="line-height: 150%">如果 mapping 的 validate 属性设置为 true, 它将调用 form 
+		bean 的 validate 方法(1.2)</li>
+		<li>
+		<p style="line-height: 150%">如果失败，Servlet 将控制转发到input 属性标明的路径，控制流终止。</li>
+		<li>
+		<p style="line-height: 150%">如果mapping 标明一个Action 
+		类型，如果它已经存在或已经实例化，它将被重用(1.3)。</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF">Action 的perform 或 
+		execute 方法被调用，并传递一个实例化的form bean (或者 null)。</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">访问数据系统，比如JDBC 数据库</li>
+		<li>
+		<p style="line-height: 150%">在请求中创建被视图使用的对象</li>
+		<li>
+		<p style="line-height: 150%">如果需要，在会话中创建对象</li>
+		<li>
+		<p style="line-height: 150%">根据需要更新会话对象，比如用户的场所</li>
+		<li>
+		<p style="line-height: 150%">执行需要的业务功能</li>
+		<li>
+		<p style="line-height: 150%">处理以外和其他错误条件</li>
+		<li>
+		<p style="line-height: 150%">发送一个直接发送一个响应，或者返回一个ActionForward 给servlet</li>
+    </ul>
+  	</li>
+		<li>
+		<p style="line-height: 150%">Action 组装form bean, 调用业务对象，以及其他需要做的事情。 
+		(1.3.1-1.3.4)。</li>
+		<li>
+		<p style="line-height: 150%"><font color="#0000FF">Action 返回一个ActionForward 
+		给ActionServlet (1.3.5).</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">Action 完成后，它返回一个ActionForward。</li>
+		<li>
+		<p style="line-height: 150%">如果 ActionForward 为null, ActionServlet 
+		假定响应产生了，但不做任何事情。</li>
+		<li>
+		<p style="line-height: 150%">如果ActionForward 指向另一个 Action URI， 
+		ActionServlet 读入 ActionForward ，重定向或者转发请求到相应的资源。 (2, 3).</li>
+		<li>
+		<p style="line-height: 150%">如果JSP 中使用了Struts HTML 标记, 并且在请求中看到正确的ActionForm 
+		(1.1)，他们会从ActionForm 中组装HTML控件。否则，&lt;html:form&gt; 标记将创建一个。</li>
+    </ul>
+  	</li>
+    </ul>
+  	</li>
+    </ul>
+  </li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">四、深入Struts</font><ul type="circle">
+      <li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">1.Struts 标签库</font><ul>
+      <li>
+		<p style="line-height: 150%">
+		<img border="0" src="sa-A-10.JPG" width="512" height="217"></li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">2.Struts的配置</font><ul>
+      <li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">三个 
+		XML文件和一个属性文件</font><ul>
+      <li>
+		<p style="line-height: 150%">web.xml. 这是Java Servlet 要求的web 
+		应用部署描述符。Servlet/JSP 容器使用这个文件来载入和配置应用系统。</li>
+		<li>
+		<p style="line-height: 150%">struts-config.xml. Struts 
+		框架的部署描述符。它用来载入和配置Struts 框架使用的各种组件。</li>
+		<li>
+		<p style="line-height: 150%">Build.xml. Jakarta Ant 
+		构建工具使用它来编译和部署你的应用。使用Ant不是必需的，但它在Struts 开发人员中很流行。</li>
+		<li>
+		<p style="line-height: 150%">Application.properties. 该文件为Struts 应用提供资源。像build.xml 
+		文件一样，它不是严格要求的，但是大多数Struts 应用都要用到。</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">Web应用部署描述符(web.xml)</font><ul>
+      <li>
+		<p style="line-height: 150%">Web 应用部署描述符的目的和格式在Sun Servlet 
+		规范中定义。它告诉Web容器如何配置servlet和应用所需要的其它高层次对象。</li>
+		<li>
+		<p style="line-height: 150%">Struts 框架有两个组件需要从应用部署描述符中配置：ActionServlet 
+		和标签库（可选）</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">一个典型的Struts 
+		web 部署描述符(web.xml文件)</font><ul>
+      <li>
+		<table border="1" width="100%" id="table1" height="640" bgcolor="#C0C0C0">
+			<tr>
+				<td width="538">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;<br>
+				&lt;!DOCTYPE web-app<br>
+				PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN&quot;<br>
+				&quot;http://java.sun.com/j2ee/dtds/web-app_2_2.dtd&quot;&gt;<br>
+				&lt;web-app&gt;</td>
+				<td bgcolor="#FFFFFF">标识为web 应用部署描述符</td>
+			</tr>
+			<tr>
+				<td width="538">&lt;servlet&gt;<br>
+				&lt;servlet-name&gt;action&lt;/servlet-name&gt;<br>
+				&lt;servlet-class&gt;<br>
+				org.apache.struts.action.ActionServlet<br>
+				&lt;/servlet-class&gt;<br>
+				&lt;init-param&gt;<br>
+				&lt;param-name&gt;application&lt;/param-name&gt;<br>
+				&lt;param-value&gt;Application&lt;/param-value&gt;<br>
+				&lt;/init-param&gt;<br>
+				&lt;init-param&gt;<br>
+				&lt;param-name&gt;config&lt;/param-name&gt;<br>
+				&lt;param-value&gt;/WEB-INF/conf/struts-config.xml&lt;/param-value&gt;<br>
+				&lt;/init-param&gt;<br>
+				&lt;init-param&gt;<br>
+				&lt;param-name&gt;debug&lt;/param-name&gt;<br>
+				&lt;param-value&gt;2&lt;/param-value&gt;<br>
+				&lt;/init-param&gt;<br>
+				&lt;init-param&gt;<br>
+				&lt;param-name&gt;detail&lt;/param-name&gt;<br>
+				&lt;param-value&gt;2&lt;/param-value&gt;<br>
+				&lt;/init-param&gt;<br>
+				&lt;load-on-startup&gt;2&lt;/load-on-startup&gt;<br>
+				&lt;/servlet&gt;</td>
+				<td bgcolor="#FFFFFF">配置 ActionServlet:告诉容器装入action 名称下的ActionServlet,有四个参数 传递给ActionServlet: 
+				即application,config, debug, 和detail。</td>
+			</tr>
+			<tr>
+				<td width="538">&lt;servlet-mapping&gt;<br></ruby>&lt;servlet-name&gt;action&lt;/servlet-name&gt;<br>
+				&lt;url-pattern&gt;*.do&lt;/url-pattern&gt;<br>
+				&lt;/servlet-mapping&gt;
+　</td>
+				<td bgcolor="#FFFFFF">标识Struts 请求:这一段告诉容器将匹配*.do 
+				格式的文件请求转发到action servlet</td>
+			</tr>
+			<tr>
+				<td width="538" height="53">&lt;welcome-file-list&gt;<br>
+				&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+				&lt;/welcome-file-list&gt;</td>
+				<td height="53" bgcolor="#FFFFFF">创建welcome 文件</td>
+			</tr>
+			<tr>
+				<td width="538">&lt;taglib&gt;<br>
+				&lt;taglib-uri&gt;/tags/struts-bean&lt;/taglib-uri&gt;<br>
+				&lt;taglib-location&gt;/WEB-INF/lib/struts-bean.tld&lt;/taglib-location&gt;<br>
+				&lt;/taglib&gt;<br>
+				&lt;taglib&gt;<br>
+				&lt;taglib-uri&gt;/tags/struts-html&lt;/taglib-uri&gt;<br>
+				&lt;taglib-location&gt;/WEB-INF/lib/struts-html.tld&lt;/taglib-location&gt;<br>
+				&lt;/taglib&gt;<br>
+				&lt;taglib&gt;<br>
+				&lt;taglib-uri&gt;/tags/struts-logic&lt;/taglib-uri&gt;<br>
+				&lt;taglib-location&gt;/WEB-INF/lib/struts-logic.tld&lt;/taglib-location&gt;<br>
+				&lt;/taglib&gt;<br>
+				&lt;/web-app&gt;</td>
+				<td bgcolor="#FFFFFF">配置Struts标签库</td>
+			</tr>
+		</table>
+		</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">
+		Struts配置(struts-config.xml)</font><ul>
+      <li>
+		<p style="line-height: 150%">Struts 配置文件 (struts-config.xml)用来装入多个Struts组件,这些组件对象一起构成了 
+		Struts 配置。</li>
+		<li>
+		<p style="line-height: 150%">Struts 配置文件是一个用来部署Java 对象的XML 
+		文档。配置中的每个元素对应一个Java 对象。在Struts 配置文件中插入一个元素，就是告诉 Struts 
+		控制器在应用初始化时要创建一个Java 对象。</li>
+</ul>
+		</li>
+</ul>
+		</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">3.用ActionForm传递数据</font><ul>
+      <li>
+		<p style="line-height: 150%">使用Web应用的开发人员通常会花费大量的时间和精力通过HTML 
+		form提交数据,或者用用户可以修改的数据预装一个表单.</li>
+		<li>
+		<p style="line-height: 150%">ActionForm是一个多功能的对象。</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">字段收集器</font><ul type="disc">
+      <li>
+		<p style="line-height: 150%">
+		绝大部分应用都需要用户输入数据。许多应用甚至需要大量的数据。在web环境中,通过HTTP有效收集数据成了其一大挑战。</li>
+		<li>
+		<p style="line-height: 150%">Struts的ActionForm对HTTP参数处理的方案是将输入参数传递到JavaBean 
+		属性来进行处理。</li>
+		<li>
+		<p style="line-height: 150%">开发人员需要做的就是提供一个具有JavaBean属性的 ActionForm，这些属性名称与HTTP请求参数匹配,其余的工作Struts将会自动进行。</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">防火墙</font><ul>
+      <li>
+		<p style="line-height: 150%">当请求提交时，ActionServlet 使用一个自动组装机制来从请求参数中设置请求的ActionForm属性。这使得你可以通过控制哪个ActionForm 
+		属性被暴露的方式来控制哪个请求参数是可接受的。</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">数据缓冲</font><ul>
+      <li>
+		<p style="line-height: 150%">
+		在一个常规GUI(非web)用户接口中，捕获用户输入的控件通常都具有一个内部缓冲，以便可以对数据进行校验。如果校验失败，用户不能离开控件。如果校验成功，数据被传送到适当类 
+		型的其它字段。开发人员通常看不到内部缓冲.</li>
+		<li>
+		<p style="line-height: 150%">HTML 
+		控件并没有一个内建的缓冲器，或者其它有效的方法，来使数据在提交之前进行校验。当然，可以用JavaScript来做这些，但JavaScript 
+		是可以被浏览器禁止的。</li>
+		<li>
+		<p style="line-height: 150%">ActionForm 
+		可以实现HTML控件的输入缓冲。它保持输入数据，直到数据被校验然后送到相应类型的字段为止。</li>
+</ul></li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">数据校验器</font><ul>
+      <li>
+		<p style="line-height: 150%">ActionForm的 validate 
+		方法提供我们校验数据,当校验失败，ActionForm 可以将整个内容都回传给web页面，这样用户就可以重新尝试。</li>
+		<li>
+		<p style="line-height: 150%">Struts 框架给了你处理数据校验的灵活性</li>
+		<li>
+		<p style="line-height: 150%">使用ActionForm的validate 
+		方法来决定输入是否是正确的类型以及它们是否可以被业务过程使用</li>
+		<li>
+		<p style="line-height: 150%">Action 
+		可以执行额外的校验，来决定输入是否满足业务层的其它要求。如果业务层校验失败，你可以将控制返回到输入页面，</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">类型转换器</font><ul>
+      <li>
+		<p style="line-height: 150%">Web客户端提交的许多基于String的输入必须转换为业务层需要的类型。</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">传输对象</font><ul>
+      <li>
+		<p style="line-height: 150%">ActionForm 是一个传输对象（Transfer Object）</li>
+		<li>
+		<p style="line-height: 150%">传输对象也称为值对象（value 
+		object）:用来通过发送粗粒度的数据视图来交换细粒度的数据。通常用在远程应用环境之中， 
+		传输对象可以将多个相关的属性组织成组，以便它可以被序列化，并且可以在一个单一操作中被传送到远程服务器。</li>
+</ul>
+		</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">4.ACTION对象</font><ul type="circle">
+      <li>
+		<p style="line-height: 150%">Servlet 引用ActionMapping 列表来选择一个Action 
+		来处理请求。Servlet 然后调用一个Action 的进入方法，并传入一些有用的对象。当Action 的进入方法完成时，它会返回一个ActionForward。ActionServlet 
+		使用这个ActionForward 来决定接下来控制应该 传递到哪里来完成这个请求。</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">什么是Action</font><ul type="circle">
+      <li>
+		<p style="line-height: 150%">Action 的主要角色是作为web和业务层之间的适配器。Action 
+		从web层获取我们需要的数据和操作并将它们传递给相应的业务层。</li>
+		<li>
+		<p style="line-height: 150%">访问业务层</li>
+		<li>
+		<p style="line-height: 150%">为表现层准备数据对象</li>
+		<li>
+		<p style="line-height: 150%">处理在其中出现的错误</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">线程安全</font><ul>
+      <li>
+		<p style="line-height: 150%">Actions 是多线程的；每个应用中对一个给定Action 子类仅有一个实例</li>
+		<li>
+		<p style="line-height: 150%">写一个Action 子类的时,类属性不能在成员方法间共享值(否则,需要另外处理).</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">Action 何时被调用</font><ul>
+      <li>
+		<p style="line-height: 150%">当需要Action 时，ActionServlet是通过Action 的perform 
+		或 execute 方法来调用它的。</li>
+		<li>
+		<p style="line-height: 150%">
+		<img border="0" src="sa-A-11.JPG" width="708" height="248"></li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">一个典型的action</font><ul>
+      <li>
+		<table border="1" width="49%" id="table2">
+			<tr>
+				<td bgcolor="#FFFFFF">public class MyAction extends Action {<p>
+				public ActionForward execute(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ActionMapping mapping,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ActionForm form,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpServletRequest Request,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpServletResponse Response)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws Exception {</p>
+				<p><br>
+				// 如果所有的异常都注册了处理句柄<br>
+　</p>
+				<p>// try .. catch 语句可以被忽略<br>
+				try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp; // * 此处调用业务逻辑*<br>
+&nbsp;}<br>
+				// * 此处捕获你的业务异常*<br>
+				catch (ChainedException e) {<br>
+				// Log and print to error console<br>
+&nbsp;&nbsp; servlet.log(&quot;Exception: &quot;, e );<br>
+&nbsp;&nbsp; e.printStackTrace();<br>
+				}</p>
+				<p>return findForward(&quot;continue&quot;);</p>
+				<p style="line-height: 150%">}}</td>
+			</tr>
+		</table>
+		</li>
+</ul>
+		</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%"><font size="5" color="#0000FF">
+		DispatchAction</font><ul>
+      <li>
+		<p style="line-height: 150%">Struts 开发人员的一个常用是使用同一个Action 类来处理几个相关的任务。 
+		比如,对一个数据记录执行基本的CRUD (创建读写修改删除)数据操作,这些操作就可以最简单地放入同一个类中进行维护。</li>
+		<li>
+		<p style="line-height: 150%">但Action的唯一入口点是perform 或者 execute 方法,如果没有DispatchAction，通常的作法是使用一个ActionForm 
+		中的隐藏字段来选择相应的动作。</li>
+		<li>
+		<p style="line-height: 150%">使用 DispatchAction来将相关的操作到组织到一个统一的 
+		Action中,简化了维护和流程控制。</li>
+		<li>
+		<p style="line-height: 150%">Action<ul>
+      <li>
+		<table border="1" width="49%" id="table4">
+			<tr>
+				<td bgcolor="#FFFFFF">public class recordDispatchAction extends 
+				DispatchAction {<p>public ActionForward execute(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ActionMapping mapping,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ActionForm form,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpServletRequest Request,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HttpServletResponse Response)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws Exception {</p>
+				<p><br>
+				// 如果所有的异常都注册了处理句柄<br>
+　</p>
+				<p>// try .. catch 语句可以被忽略<br>
+				try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp; // * 此处调用业务逻辑*<br>
+&nbsp;}<br>
+				// * 此处捕获你的业务异常*<br>
+				catch (ChainedException e) {<br>
+				// Log and print to error console<br>
+&nbsp;&nbsp; servlet.log(&quot;Exception: &quot;, e );<br>
+&nbsp;&nbsp; e.printStackTrace();<br>
+				}</p>
+				<p>return findForward(&quot;continue&quot;)</p>
+				<p style="line-height: 150%">}</p>
+				<p style="line-height: 150%">public ActionForward update(<br>
+				ActionMapping mapping,<br>
+				ActionForm form,<br>
+				HttpServletRequest Request,<br>
+				HttpServletResponse Response)<br>
+				throws IOException, ServletException{</p>
+				<p style="line-height: 150%">}<br>
+				public ActionForward delete(<br>
+				ActionMapping mapping,<br>
+				ActionForm form,<br>
+				HttpServletRequest Request,<br>
+				HttpServletResponse Response)<br>
+				throws IOException, ServletException{</p>
+				<p style="line-height: 150%">}</p>
+				<p style="line-height: 150%">}</td>
+			</tr>
+		</table>
+		</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%">在Struts 配置(Struts-config.xml)中可以创建这样的配置<ul>
+      <li>
+		<table border="1" width="49%" id="table3">
+			<tr>
+				<td>
+				<p style="line-height: 150%">&lt;action<br>
+				path=&quot;/dataRecord&quot;<br>
+				type=&quot;app.recordDispatchAction&quot;<br>
+				name=&quot;dataForm&quot;<br>
+				scope=&quot;request&quot;<br>
+				input=&quot;/data.jsp&quot;<br>
+				parameter=&quot;method&quot;/&gt;</td>
+			</tr>
+		</table>
+		</li>
+</ul>
+		</li>
+		<li>
+		<p style="line-height: 150%">调用时： http://localhost/app/dataRecord?method=delete</li>
+</ul>
+		</li>
+</ul>
+		</li>
+</ul>
+<p style="line-height: 150%"><font color="#0000FF" size="6"><a href="software%20architecture.htm#L5_0">返回</a></font></p>
+<p style="line-height: 150%">=======================================================================================</p>
+<p style="line-height: 150%">　</p>
+
+</body>
+
+</html>
+
+
+
+

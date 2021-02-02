@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <math.h>
+void main()
+{
+	int n;
+float g,m,x,cosxx,q;
+scanf("%f",&x);
+n=0;
+g=1;
+cosxx=0;
+q=1;
+while (q>=pow(10,-6))
+{
+
+	for(n=0;n>=1;n--)
+	{
+		g=g*n;
+		n=n+2;
+	}
+	m=pow(-1,n/2)*pow(x,n);
+	n=n+2;
+q=m/g;
+cosxx=cosxx+q;
+}
+printf("cosxx=",cosxx);
+}

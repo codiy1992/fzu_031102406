@@ -1,0 +1,26 @@
+int count=100;
+void pa()
+{
+int x;
+x=count;
+x++;
+count=x;
+}
+void pb()
+{
+int x;
+x=count;
+x--;
+count=x;
+}
+void main()
+{
+ cout<<"c_begin="<<count<<endl;
+cobegin
+{
+
+pa();pb();
+
+}
+ cout<<"c_end="<<count<<endl;
+}

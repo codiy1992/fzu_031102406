@@ -1,0 +1,46 @@
+题目描述：设计一个圆的类，半径是其私有数据成员。 读入半径，输出圆面积。PI的值取3.1415926 。要求采用C++面向对象的方法实现。 
+输入格式： 测试输入包含若干测试用例，每个测试用例占一行。当读入0时输入结束，相应的结果不要输出。
+输出格式：对每个测试用例输出一行。每个输出结果的精度，保留小数点后面4位。
+输入样例：
+36754
+12.1
+0
+输出样例：
+4243840834.3274
+459.9606
+退出程序结束
+
+
+
+
+
+#include <iostream>
+#include <iomanip>
+#define PI 3.1415926
+using namespace std;
+
+class circle 
+{
+private:
+	double r;
+public:
+	void display();
+};
+
+void circle::display()
+{
+	int i;
+	double s;
+	for(i=0;;i++)
+	{
+		cin>>r;
+		if(r==0) break;
+		s=PI*r*r;
+		cout<<setiosflags(ios::fixed)<<setprecision(4)<<s<<endl;
+	}
+}
+int main()
+{
+	circle circle1;
+	circle1.display();
+}

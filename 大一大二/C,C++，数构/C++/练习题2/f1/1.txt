@@ -1,0 +1,63 @@
+读入两个小于100的正整数A和B，计算A+B。
+需要注意的是：A和B的每一位数字由对应的英文单词给出。
+输入格式：测试输入包含若干测试用例，每个测试用例占一行，格式为"A + B ="，相邻两字符串有一个空格间隔。当A和B同时为0时输入结束，相应的结果不要输出。
+输出格式：对每个测试用例输出1行，即A+B的值。
+输入样例：
+one + two =
+three four + five six =
+zero seven + eight nine =
+zero + zero =
+输出样例：
+3
+90
+96
+
+
+
+
+
+
+
+
+源代码：
+
+#include <iostream>
+#include <string>
+using namespace std;
+string num[10]={"zero","one","two","three","four","five","six","seven","eight","nine"};
+class number
+{
+private:
+	string s;
+	int a,b;
+public:
+	int sum;
+	void inter()
+	{
+		int i;
+		a=b=0;
+		for(cin>>s;s!="+";cin>>s)
+			for (i=0;i<10;i++)
+				if(s==num[i]) a=a*10+i;
+		for(cin>>s;s!="=";cin>>s)			
+			for (i=0;i<10;i++)
+				if(s==num[i]) b=b*10+i;
+		sum=a+b;
+	}
+	void print()
+	{
+		cout<<sum<<endl;
+	}
+};
+int main()
+{
+	number num;
+	while(1) 
+	{
+		num.inter();
+		if (num.sum)
+			num.print();
+		else break;
+	} 
+	return 0;
+}

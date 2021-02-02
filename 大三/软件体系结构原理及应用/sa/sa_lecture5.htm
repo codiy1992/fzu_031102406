@@ -1,0 +1,600 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 2</title>
+<script language="JavaScript" fptype="dynamicoutline">
+<!--
+function dynOutline() {}
+//-->
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" src="outline.js">
+</script>
+<script language="JavaScript1.2" fptype="dynamicoutline" for="document" event="onreadystatechange()">
+<!--
+initOutline()
+//-->
+</script>
+</head>
+
+<body onclick="dynOutline()">
+
+<p><font color="#FF0000"><font size="6">S</font><b><font size="6">oftware     
+Architecture&nbsp;</font></b></font></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">&nbsp; 　　　　　－<b><font size="5">principle            
+and practice</font></b></font></p>           
+<hr>   
+<p><font size="6"><a name="L6_1"></a><font color="#0000FF">第五讲　层次结构技术分析</font></font></p>
+ <blockquote>
+<p>　</p>
+</blockquote>
+<ul dynamicoutline initcollapsed type="circle">
+
+ <li><font size="5" color="#0000FF">一、线程技术</font> 
+    <ul type="disc">
+      <li><font size="5" color="#0000FF">1.引入线程的目的</font>
+          <ul type="disc">
+            <li><font size="5">系统工作单位的粒度减小，提高并行程度</font></li>
+            <li><font size="5">减少处理器切换的开销</font></li>
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">2.线程的概念</font>
+          <ul type="disc">
+            <li><font size="5">进程的有效细化，是进程内可独立执行（调度）的实体。</font></li>
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">3.线程与进程的区别、联系</font>
+          <ul type="disc">
+            <li><font size="5">一个进程可分为多个线程，这些线程共享同一个进程的地址空间</font></li>
+            <li><font size="5">进程的活动由它的线程的活动来体现</font></li>
+            <li><font size="5">只有一个线程的进程与进程没有区别</font></li>
+            <li><font size="5">同一个进程的几个线程之间需要同步控制</font></li>
+            <li><font size="5">线程可以并发执行，也可以并行执行（多CPU时）</font></li>
+            <li><font size="5">进程是资源分配的基本单位，线程是处理器分配、调度的基本单位</font></li>
+            <li><font size="5">进程的地址空间是私有的，进程间的处理器切换时现场的保护/恢复的开销大</font></li>
+            <li><font size="5">同一进程的线程之间进程处理器切换时现场的保护/恢复的开销小</font></li>
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">4.线程的分类</font>
+          <ul type="disc">
+            <li><font size="5" color="#0000FF">用户级线程</font>
+                <ul type="disc">
+                  <li><font size="5">线程的管理是在用户空间实现</font></li>
+                  <li><font size="5">可以在不支持线程的OS中实现</font></li>
+                  <li><font size="5">线程间切换不要进程内核，减小系统的开销</font></li>
+                  <li><font size="5">未能实现并行程序的提高</font></li>
+                </ul>
+            </li>
+            <li><font size="5" color="#0000FF">系统级线程</font>
+                <ul type="disc">
+                  <li><font size="5">线程的管理由OS实现</font></li>
+                  <li><font size="5">并行程度得到提高</font></li>
+                  <li><font size="5">但在内核的切换影响到系统开销</font></li>
+                </ul>
+            </li>
+            <li><font size="5">调度激话－综合以上两种基本类型</font></li>
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">5.线程的执行特性</font>
+          <ul type="disc">
+            <li><font size="5" color="#0000FF">线程的生命期－动态性</font>
+                <ul type="disc">
+                  <li><font size="5">派生</font></li>
+                  <li><font size="5">阻塞</font></li>
+                  <li><font size="5">激活</font></li>
+                  <li><font size="5">调度</font></li>
+                  <li><font size="5">结束</font></li>
+                </ul>
+            </li>
+            <li><font size="5" color="#0000FF">线程的同步</font>
+                <ul type="disc">
+                  <li><font size="5">同一进程的线程共享该进程的地址空间，需要同步或互斥</font></li>
+                </ul>
+            </li>
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">6.线程的应用</font>
+          <ul type="disc">
+            <li><font size="5" color="#0000FF">服务器：文件系统或通信</font>
+                <ul type="disc">
+                  <li><font size="5">分派/处理结构(dispath/worker)</font></li>
+                  <li><font size="5">队列结构(Team)</font></li>
+                  <li><font size="5">管道结构(Pipe)</font></li>
+                </ul>
+            </li>
+            <li><font size="5">客户：前后台处理</font></li>
+            <li><font size="5">异步处理：进程中若有两个或多个任务，它们之间的处理顺序没有规定，则每个任务可以由一个线程处理</font></li>
+          </ul>
+      </li>
+    </ul>
+  </li>
+  
+ <li><font size="5" color="#0000FF">二、服务器缓冲技术</font> 
+    <ul>
+      <li><font size="5" color="#0000FF">1.无状态信息(Stateless)服务器</font>
+          <ul type="disc">
+            <li><font size="5">一个服务器称为无状态信息的，当一个客户发送的一个请求给服务器时，服务器执行请求，返回结果，然后删除该请求的有关所有信息。</font></li>
+            
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">2.有状态信息(State)服务器</font>
+          <ul type="disc">
+            <li><font size="4"><b>通常集中式系统中，对于活动的进程，系统往往保留状态信息，而对分布式系统来说，是否也可以借鉴？</b></font></li>
+                  <li><font size="4"><b><font color="#FF0000">有状态信息服务器(Stateful      
+                    information server):</font>文件服务器拥有打开、关闭、读、写等操作，当一个文件被打开后，服务器将保存是哪一个客户打开的，打开的是哪一个文件，并生成一个<font color="#0000FF">文件描述符</font>(<font color="#0000FF">file      
+                      discroptor</font>)。一个客户如果已经打开了一个文件，那么它的后续操作，只要给出文件描述符及有关的参数即可，服务器收到请求后，根据文件描述符就知道哪一个文件。<font color="#FF0000">状态信息(Stateful      
+                        information)是一个映射表，文件描述符映射到它的文件。</font></b></font></li>
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">3.无状态服务器与有状态服务器的比较</font>
+          <ul type="disc">
+            <li><font size="4"><b><font color="#008080">对于无状态服务器，每一个请求都要求是完备的、独立的，包含完整的文件名、偏移量，以便服务器的工作，请求消息长度增加。</font></b></font></li>
+              <li><font size="4"><b><font color="#008080">无状态信息服务器具有更高的容错性。</font></b></font></li>
+              <li><font size="4"><b><font color="#008080">Open/Close调用没有必要，从而减少传送消息的次数</font></b></font></li>
+              <li><font size="4"><b><font color="#008080">服务器不会因为保留状态信息而浪费空间，因为某一时刻当有大量客户要打开大量文件时，表将填满而新文件不能打开，客户的请求得不到服务，正确的程序将不能正确地工作，无状态信息服务器将消除这个问题。</font></b></font></li>
+              <li><font size="4"><b><font color="#008080">客户机崩溃也不会产生问题。</font></b></font></li>
+              <li><font size="4"><b><font color="#008080">文件加锁是不可能的，因为无状态可登记，这种情况下，无状态信息服务器不得不使用加锁服务器。</font></b></font></li>
+              <li><font size="4"><b><font color="#800080">对于有状态信息服务器，Read/Write消息中不必包含文件名，它们的长度将缩短，从而占用更少的网络带宽；</font></b></font></li>
+              <li><font size="4"><b><font color="#800080">由于打开的文件在内存中，读、写操作速度更快，性能得到提高；</font></b></font></li>
+              <li><font size="4"><b><font color="#800080">因为更经常的是读操作，所以可以事先成块读到内存而减少延时；</font></b></font></li>
+              <li><font size="4"><b><font color="#800080">同一有效性容易实现，如果客户因超时重传同样的请求，服务器有两个接收的情况下，由于内存中保存了状态信息，很容易通过比较每个消息的序号而发现；</font></b></font></li>
+              <li><font size="4"><b><font color="#800080">文件加锁是可能的。</font></b></font></li>
+              <li><font size="4"><b>A comparison of stateless and sateful server</b></font></li>
+          </ul>
+      </li>
+      <li><font size="5" color="#0000FF">4.无状态服务器与有状态服务器的比较总结</font>
+          <ul type="disc">
+           <li>
+            <table border="1" width="91%" height="218">
+              <tr>
+                <td width="54%" height="29" bgcolor="#C0C0C0" align="center"><font size="4"><b><font color="#000080">advantages      
+                  of stateless server</font></b></font></td>
+                <td width="46%" height="29" bgcolor="#C0C0C0" align="center"><font size="4"><b><font color="#000080">advantages      
+                  of stateful server</font></b></font></td>
+              </tr>
+              <tr>
+                <td width="54%" height="27" bgcolor="#0000FF"><font size="4"><b><font color="#FFFF00">Fault      
+                  tolerance</font></b></font></td>
+                <td width="46%" height="27" bgcolor="#FF00FF"><font color="#FFFFFF" size="4"><b>Shorter      
+                  request message</b></font></td>
+              </tr>
+              <tr>
+                <td width="54%" height="30" bgcolor="#0000FF"><font size="4"><b><font color="#FFFF00">No      
+                  pen/close calls needed</font></b></font></td>
+                <td width="46%" height="30" bgcolor="#FF00FF"><font color="#FFFFFF" size="4"><b>Better      
+                  performance</b></font></td>
+              </tr>
+              <tr>
+                <td width="54%" height="32" bgcolor="#0000FF"><font size="4"><b><font color="#FFFF00">No      
+                  server space wasted on table</font></b></font></td>
+                <td width="46%" height="32" bgcolor="#FF00FF"><font color="#FFFFFF" size="4"><b>Readahead      
+                  possible</b></font></td>
+              </tr>
+              <tr>
+                <td width="54%" height="31" bgcolor="#0000FF"><font size="4"><b><font color="#FFFF00">No      
+                  limits on numbers of opened file</font></b></font></td>
+                <td width="46%" height="31" bgcolor="#FF00FF"><font color="#FFFFFF" size="4"><b>Idempotency      
+                  easier</b></font></td>
+              </tr>
+              <tr>
+                <td width="54%" height="33" bgcolor="#0000FF"><font size="4"><b><font color="#FFFF00">No      
+                  problem if a client crashes</font></b></font></td>
+                <td width="46%" height="33" bgcolor="#FF00FF"><font color="#FFFFFF" size="4"><b>FIle      
+                  locking possible</b></font></td>
+              </tr>
+            </table>
+          </li>
+          </ul>
+      </li>
+    </ul>
+  </li>
+  
+ 
+   
+   
+ 
+ 
+  <li><font color="#0000FF" size="5">三、N层结构的特性</font>
+    <ul type="disc">
+      <li><font color="#0000FF" size="4">层次结构是解决复杂问题时最常用的软件结构，</font></li>
+      <li><font color="#0000FF" size="4">1.层次结构设计</font>
+        <ul>
+          <li><font color="#0000FF" size="4">层次</font>
+            <ul>
+              <li><font size="4">完成若干功能或服务的模块，这些功能具有独立性；</font></li>
+              <li><font size="4">一个层次是一个服务的提供者；</font></li>
+              <li><font size="4">一个层次还可以进一步分层；</font></li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="4">层次间的单向依赖关系</font>
+            <ul>
+              <li><font size="4">同一系统的层次之间构成单向的依赖关系，一个层次依赖于较低的层次。这种依赖关系是通过接口实现的。</font></li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="4">层次的隐藏性</font>
+            <ul>
+              <li><font size="4">层次间的单向依赖关系使得每个层次具有隐藏性。一个层次可以隐藏其内部的实现细节，向上提供一个一致的服务。使高层次可以不必了解低层次的细节，如物理特性、存储方式、位置等。</font></li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="4">分层的原则</font>
+            <ul>
+              <li><font size="4">第n层存在的必要性：它对n-1进一步完善和扩充，并提供n+1的服务接口更简单可靠。</font></li>
+              <li><font size="4">从这个意义上说，层次的隐藏性是不完全的，如果第n层中的一项服务已经足够完善，则该服务就不必在n+1层中继续存在，这样，第n+2层在需要该服务时可直接使用第n层中的服务。</font></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="4">2.软件系统的层次结构</font>
+        <ul type="disc">
+          <li><font size="4" color="#0000FF">研究表明，任何软件的完整结构都具有层次关系</font>
+            <ul>
+              <li><font size="4" color="#FF0000">硬件基础层：</font><font size="4">这是软件得以运行的物质基础，它包括：处理器、存储器、时钟、中断及其控制、I/O端口、I/O通道、快速缓存、DMA等。软件是针对特定硬件的构成而设计的，反映对硬件的支持的需要，即硬件发生变化后，原则上软件也需要做出相应的为变更。</font></li>
+              <li><font size="4" color="#FF0000">软化的硬件层：</font><font size="4">在对硬件结构和性能进行描述的基础上，实现硬件的操作和控制描述，这就是软化的硬件层。在该层次上，处理器被软化为状态和指令的集合，中断被描述为状态和中断服务的集合等。该层是软件构成的基础，其程序设计工具主要是汇编语言(assemble    
+                language)。</font></li>
+              <li><font size="4" color="#FF0000">基础控制描述层：</font><font size="4">主要包括高级语言的所支持的程序控制和数据描述。程序控制的概念有：顺序、条件、选择、循环、变量、参数、生存期、程序、过程/函数等，数据描述的概念有：数组、结构/记录、队列、树、图、指针等，以及面向对象中的类、对象、继承、多态、重载等。该层次的工具是程序设计语言、结构化或面向对象的分析设计。</font></li>
+              <li><font size="4" color="#FF0000">资源和管理层：</font><font size="4">在基础控制要描述层建立的一切对象和数据都需要在操作系统的协调和控制下才能实际地实现其设计的作用和功能。该层提供了基于操作系统结构的任务管理、消息处理、系统输入/输出控制，其他系统级别的资源和功能服务。该层的某些服务的定义在基础控制描述层中，但功能的实现是建立在操作系统管理层的。</font></li>
+              <li><font size="4" color="#FF0000">系统结构模型层</font><font size="4" color="#FF0000">：</font><font size="4">我们知道，软件体系结构是软件的“高层(high    
+                level)结构”，该层包括的概念如：解释器、管道/过滤器，C/S、黑板等</font></li>
+              <li><font size="4" color="#FF0000">应用层：</font><font size="4">这是纯粹从应用领域出发所建立的系统结构概念，该层包括的概念如，企业管理、公文处理、控制系统、CAD系统等。</font></li>
+            </ul>
+          </li>
+          <li><img border="1" src="sa06-04.bmp" width="344" height="502"></li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="4">3.N层结构</font>
+        <ul type="disc">
+          <li><font size="4">C/S或B/S结构称为2层结构，我们把层次结构中3层或3层以上统称为N层结构。</font></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><font color="#0000FF" size="5">四、N层结构的实现</font>
+    <ul type="disc">
+      <li><font size="4" color="#0000FF">1.一个产品的软件体系结构风格如果采用N层结构。则可能按下面的步骤实施</font>
+        <ul type="disc">
+          <li><font size="4" color="#FF0000">定义为合适的分层而采取的抽象标准：</font><font size="4">在软件开发中，根据距硬件接近或距应用接近的程度建立分层，比如某个应用可能建立如下的分层：用户界面、特定功能模块、公共服务、操作系统接口、操作系统、硬件层。</font></li>
+          <li><font size="4" color="#FF0000">抽象标准决定模型层次的数目：</font><font size="4">分层的原则是对于第n+1层来说，如果第n层提供的功能不会比第n－1层简单，则第n层就不必存在。</font></li>
+          <li><font size="4" color="#FF0000">给每个层次命名和分配任务：</font><font size="4">在层次结构中最高层的任务就是整个系统从用户出发的任务。如果采用自底向上的设计方法，较高层次是建立在较低层次之上的，这要求对系统具有丰富的经验和敏锐的洞察力，以便在确定高层前找到低层次的合适抽象。</font></li>
+          <li><font size="4" color="#FF0000">规范服务：</font><font size="4">层次之间要严格分开，确保没有部件会跨越两层以上，层J函数的参数、返回值和错误类型者应限定在程序语言的类型、层J定义的类型或从共享数据模块中引用的类型。</font></li>
+          <li><font size="4" color="#FF0000">为每个层次定义接口：</font><font size="4">在层J中定义一套良好的供层J＋1层使用的服务接口(interface),使用层J＋1看不到层J对接口对应的服务的实现细节，</font></li>
+          <li><font size="4" color="#FF0000">设计错误处理策略：</font><font size="4">尽可能把错误处理在更低层次上，避免高陷入更多的错误。</font></li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="4">2.Window NT的层次结构</font>   
+        <ul type="disc">
+          <li><font size="4">系统服务层</font></li>
+          <li><font size="4">资源管理层</font></li>
+          <li><font size="4">内核</font></li>
+          <li><font size="4">硬件抽象层</font></li>
+          <li><font size="4">硬件层</font></li>
+          <li><img border="1" src="sa06-05.bmp" width="476" height="522"></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><font color="#0000FF" size="5">五、N层结构的优缺点</font>
+    <ul>
+      <li><font color="#0000FF" size="4">优点</font>
+        <ul dynamicoutline>
+          <li><font size="4" color="#FF0000">层次的利用性：</font><font size="4">如果层次中很好地体现了抽象、并且具有定义良好、文档化的接口，那么该层能在多个环境中使用。</font></li>
+          <li><font size="4" color="#FF0000">对标准化的支持：</font><font size="4">清晰定义并广泛接受的抽象层次能够促进实现标准化的任务和接口开发，相同接口的不同实现能够互换使用，这样就允许在不同的层使用来自不同</font><font size="4">组织的产品。</font></li>
+          <li><font size="4" color="#FF0000">依赖性本地化：</font><font size="4">层次的标准接口通常把代码的变化的影响限制在其所在的层次上，支持了系统的可移植性和可测试性。</font></li>
+          <li><font size="4" color="#FF0000">可替换性：</font><font size="4">独立层次的实现能够轻易地被功能相同的模块替换。如果层次之间的联系在代码中是固定的，那么联系能够根据新层次实现的名称来更新。比如，硬件的可替换性，新的硬件I/O设备通过安装正确的驱动程序就能够使用，互操作性不影响高层次，高层次的接口不要改变，可以像以前一样继续向低层请求服务。</font></li>
+          <li><font size="4" color="#FF0000">位置透明性：</font><font size="4">通常低层次把服务所在的网络物理位置隐藏起来，使高层次的请求可以不关心其服务是在本地或是在远程。</font></li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="4">缺点</font>
+        <ul dynamicoutline>
+          <li><font size="4" color="#FF0000">改变行为的连锁效应：</font><font size="4">当某个层次的构成和行为发生变化时会生产生严重的连锁效应，在维护升级时，如果必须在许多层次上做大量的工作，那么层次结构将变成一种缺点。</font></li>
+          <li><font size="4" color="#FF0000">低效率：</font><font size="4">分层结构通常要比单层结构的效率低。如果高层服务严重地依赖于底层服务，那么必须穿越许多中间层进行数据的拷贝。　</font></li>
+          <li><font size="4" color="#FF0000">分层是有限制的：</font><font size="4">并不是所有的产品都可以分层，同一产品</font><font size="4">需要分成几个层次没有统一的标准。</font></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><font color="#0000FF" size="5">六</font><font color="#0000FF" size="5">、一个用于构造分布式系统的层次结构设计</font>
+    <ul type="disc">
+      <li>　</li>
+      <li><img border="0" src="sa06-06.bmp" width="547" height="456"></li>
+      <li><font color="#0000FF" size="4">1.表示层－－</font><font color="#0000FF" size="4">用户界面技术</font>
+        <ul type="circle">
+          <li><font color="#0000FF" size="4">划分UI</font><font color="#0000FF" size="4">C和UIPC，进一步抽象，提高代码的重用性和降低模块的耦合度</font></li>
+          <li><font color="#0000FF" size="4">UI－－用户和应用进行交互的接口</font>
+            <ul type="disc">
+              <li><font color="#0000FF" size="4">提供的功能</font>
+                <ul type="disc">
+                  <li><font color="#0000FF" size="4">输入方面</font>
+                    <ul type="disc">
+                      <li><font size="4">辅助用户输入，提供各种提示和帮助，在输入的同时会有一些校验，如日期等</font></li>
+                      <li><font size="4">响应用户操作所触发的各种事件（可能会展现出其他的UI）。</font></li>
+                      <li><font size="4">限制用户的输入，在数据改变的时候，可能会有一些相关联的操作（如，单价的改变，影响到总价）。</font></li>
+                      <li><font size="4">处理一些特殊的操作（如drap-drop,剪贴板等）</font></li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF" size="4">输出方面</font>
+                    <ul type="disc">
+                      <li><font size="4">格式化数据（如金额、日期等）</font></li>
+                      <li><font size="4">特殊显示（坏帐号用特殊颜色标识出来）</font></li>
+                      <li><font size="4">将一些编码转换成有意义的名称</font></li>
+                    </ul>
+                  </li>
+                  <li><font size="4">个性化（Web页面，Winfrom(dialog,MDI,SDI))</font></li>
+                  <li><font size="4">其他(状态、分页显示查询结果等）</font></li>
+                </ul>
+              </li>
+              <li><font size="4">UI与UI之间的调用的代码不要写在UIC中，由UIP处理，提高重用性</font></li>
+              <li><font size="4" color="#0000FF">UIPC－－处理用户UI的流程控制</font>
+                <ul type="disc">
+                  <li><font size="4" color="#0000FF">MVC模型</font>
+                    <ul type="disc">
+                      <li>　</li>
+                      <li><img border="0" src="sa06-07.bmp" width="272" height="221"></li>
+                      <li>View。用户操作界面</li>
+                      <li>Model。内部数据结构，状态数据</li>
+                      <li>Controller。控制流程，UIPC的核心</li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF">什么是UIPC</font>
+                    <ul type="disc">
+                      <li>根据状态改变决定使用哪一个UI。</li>
+                      <li><font color="#0000FF">应用场景</font>
+                        <ul type="disc">
+                          <li>有些UI之间的相互作用，存在明确的处理顺序（向导界面的上一、下一等，购物网站的浏览、选择并加入购物车到收银台结帐）</li>
+                          <li><font color="#0000FF">这些类型的界面操作的特点：</font>
+                            <ul type="disc">
+                              <li>用户操作流程可以用一张流程（导航）图来描述）</li>
+                              <li>导航图上每一个节点是一个用户界面（窗口、页面）</li>
+                              <li>界面之间的跳转由用户操作触发的</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>处理这种流程的控制器称为UIP</li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF">UIPC的好处</font>
+                    <ul type="disc">
+                      <li>隔离UI与业务逻辑层</li>
+                      <li>对流程中的UI进行管理</li>
+                      <li>提供状态保存和传递机制</li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF">状态保存</font>
+                    <ul type="disc">
+                      <li>Server状态和Client状态，状态有效期？</li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF">Smart Client</font>
+                    <ul type="disc">
+                      <li>智能安装和版本更新</li>
+                      <li>Connected。选择一个合适的有效的Service</li>
+                      <li>能够利用本地资源（CPU、HD等）</li>
+                      <li>离线能力。在不连接网络上工作，连线时提交数据</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="4">2.业务逻辑层－－应用系统的核心</font>
+        <ul>
+          <li><font color="#0000FF" size="4">Business Component</font>
+            <ul>
+              <li><font color="#0000FF" size="4">含义</font>
+                <ul>
+                  <li><font size="4">实现业务规则及执行业务工作的组件，负责发起事务，实现业务功能</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">特点</font>
+                <ul>
+                  <li><font size="4">由用户处理层的UIPC、服务接口、以及其他业务组件调用，包含一些业务数据和操作，以及复杂的数据结构</font></li>
+                  <li><font size="4">是事务的发起者，参与事务的提交</font></li>
+                  <li><font size="4">必须验证输入和输出</font></li>
+                  <li><font size="4">通过调用数据层组件获取数据或修改应用数据</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">设计</font>
+                <ul>
+                  <li><font color="#0000FF" size="4">PIPELine Parttern.顺序规定</font></li>
+                  <li><font color="#0000FF" size="4">Event Parttern.顺序不固定</font></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="4">Business Workflow</font>
+            <ul>
+              <li><font color="#0000FF" size="4">含义</font>
+                <ul>
+                  <li><font size="4">具有各种不同功能的活动相连的一组有相互绕道而行关系的任务。</font></li>
+                  <li><font size="4">业务流程有起点和终点，而且它们都是可重复的</font></li>
+                  <li><font size="4">由多个Business Components组成，有一定的顺序。</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">特点</font>
+                <ul>
+                  <li><font size="4">迅速实现商业规则和商业目标的改变的能力</font></li>
+                  <li><font size="4">将每一步业务操作、资源管理以及流程独立分离</font></li>
+                  <li><font size="4">以前后一致的方式定义、改变和实现业务流程</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">种类</font>
+                <ul>
+                  <li><font size="4">基本于人的业务流程：他要完成、批准、执行的文档</font></li>
+                  <li><font size="4">基于规则的自动化流程：应用程度彼此连接，在无人干预的情况下进行合作</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">实现</font>
+                <ul>
+                  <li><font color="#0000FF" size="4">流程引擎－－Business 
+                    Workflow的核心</font>
+                    <ul>
+                      <li><font size="4">实现业务流程，同时管理活动的启动和终止，或业务功能</font></li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF" size="4">资源管理</font>
+                    <ul>
+                      <li><font size="4">使实现商业功能或活动所必须的资源具有可用性</font></li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF" size="4">调度程序</font>
+                    <ul>
+                      <li><font size="4">资源可用性的限制，商业功能经常受时间约束，需要调度程序以使时间约束和资源可用性相匹配</font></li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF" size="4">审计管理</font>
+                    <ul>
+                      <li><font size="4">关键组件，跟踪谁操作什么</font></li>
+                    </ul>
+                  </li>
+                  <li><font color="#0000FF" size="4">安全管理</font>
+                    <ul>
+                      <li><font size="4">资格授权</font></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="4">Business interface</font>
+            <ul>
+              <li><font color="#0000FF" size="4">含义</font>
+                <ul>
+                  <li><font size="4">服务接口是一组软件实体，为实现处理映射和转换服务的外观组件（facade)，把业务逻辑表现为服务，为服务提供进入点。</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">作用</font>
+                <ul>
+                  <li><font size="4">提供业务处理的调用点</font></li>
+                  <li><font size="4">实现缓冲、映射、以及简单的格式和结构转换</font></li>
+                  <li><font size="4">不实现业务逻辑</font></li>
+                  <li><font size="4">进行信息安全控制：有的需要安全身份验证</font></li>
+                  <li><font color="#0000FF" size="4">分隔内部系统的实现</font>
+                    <ul>
+                      <li><font size="4">对内部实现进行更新时，不需要变更服务接口</font></li>
+                      <li><font size="4">需要验证传入的消息</font></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">特点</font>
+                <ul>
+                  <li><font size="4">将服务接口视为应用程序的信任界限</font></li>
+                  <li><font size="4">同一功能的服务发布多种服务接口，不同接口执行不同的服务等级义协议（SLA）</font></li>
+                  <li><font size="4">尽可能提高与其它平台和服务的互操作性</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">实现</font>
+                <ul>
+                  <li><font size="4">服务接口使得使用者和提供者之间能够交换信息，负责实现通信时的所有细节</font></li>
+                  <li><font size="4" color="#0000FF">网络协议</font>
+                    <ul>
+                      <li><font size="4">应该封闭使用者和通信所使用的网络协议（如，服务由TCP/IP上的http向使用者提供，则服务接口可以实现为ASP.NET组件，发布URL，http请求、响应和返回等）</font></li>
+                    </ul>
+                  </li>
+                  <li><font size="4">数据格式</font>
+                    <ul>
+                      <li><font size="4">负责对使用者的数据格式和服务所期望的数据格式的转换</font></li>
+                    </ul>
+                  </li>
+                  <li><font size="4">安全性：信任边界，敏感操作授权使用</font></li>
+                  <li><font size="4">服务等级协议（SLA）：Service Level 
+                    Agreement,服务接口缓冲、缩短响应时间、节省网络传输等，负载平衡功能、容错技术等</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF">方法</font>
+                <ul>
+                  <li>XML　Web　服务</li>
+                  <li>消息队列方式（MQ）</li>
+                </ul>
+              </li>
+              <li><font color="#0000FF">优点</font>
+                <ul>
+                  <li>接口与应用逻辑分离（重用、维护）</li>
+                  <li>部署灵活（代码与服务分离）</li>
+                </ul>
+              </li>
+              <li><font color="#0000FF">缺点</font>
+                <ul>
+                  <li>接口粒度设计</li>
+                  <li>增加在更改服务所需的工作量</li>
+                  <li>增加复杂性和性能开销</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><font color="#0000FF" size="4">Business Entities （BE）</font>
+            <ul>
+              <li><font color="#0000FF" size="4">含义</font>
+                <ul>
+                  <li><font size="4">应用程序的逻辑可能在设计中需要考虑多种数据格式，UI层的数据与数据库中的数据格式、外部服务提供的数据格式等可以不同。BE提供了一个中间层。</font></li>
+                </ul>
+              </li>
+              <li><font color="#0000FF" size="4">作用</font>
+                <ul>
+                  <li><font size="4">将显示数据与实际存储隔离，保证业务实体的独立性，提高重用性</font></li>
+                  <li><font size="4">业务实体一般是在应用程序中内部使用</font></li>
+                  <li><font size="4">不同业务其数据格式不同</font></li>
+                </ul>
+              </li>
+              <li><font size="4">XML、dataset、datareader</font></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="4">3.数据逻辑访问层(DAL)</font>
+        <ul type="disc">
+          <li>　</li>
+          <li><img border="0" src="sa06-08.bmp" width="416" height="413"></li>
+          <li><font color="#0000FF" size="4">好处</font>
+            <ul type="disc">
+              <li><font size="4">增加代码重用性，可以被业务逻辑层在多个地方反复引用</font></li>
+              <li><font size="4">尽可能消除业务逻辑层对数据源的依赖（由于数据源改变造成的影响极小化），DAL可以通过配置文件进行改变（如Oracle改变为MS 
+                SQL Server)，隐藏了数据操作的细节</font></li>
+              <li><font size="4">需要一个Helper来帮助完成数据操作，管理连接、缓冲等</font></li>
+              <li><font color="#0000FF" size="4">Helper的作用</font>
+                <ul type="disc">
+                  <li><font size="4">为DAL提供通用的数据访问接口</font></li>
+                  <li><font size="4">减少数据访问操作代码（简化执行SQL语句和调用存储过程的代码）</font></li>
+                  <li><font size="4">进行数据连接管理</font></li>
+                  <li><font size="4">在不同的数据源之间，可以提供统一的接口</font></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><font color="#0000FF" size="4">4.数据层</font>
+        <ul type="disc">
+          <li><font size="4">数据源：关系数据库、文件系统、Exchange 
+            Server、Web Storage等</font></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><font color="#0000FF" size="5">七</font><font color="#0000FF" size="5">、作业</font>
+   
+  </li>
+</ul>
+<p>　</p>
+<p><font color="#0000FF" size="6"><a href="software%20architecture.htm#L6_0">返回</a></font></p>
+<p>=======================================================================================</p>
+
+</body>
+
+<script language="JavaScript"></script>
+
+<script language="JavaScript"></script>
+
+</html>
+
+
+
+
+
+
